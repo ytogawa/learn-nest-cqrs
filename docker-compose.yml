@@ -20,6 +20,7 @@ services:
       - -c
       - |
         npm ci
+        npm run build
         npm run start:debug
     depends_on:
       database:
