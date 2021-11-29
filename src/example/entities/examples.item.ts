@@ -1,6 +1,7 @@
 import { Entity } from '~/utils/entity';
 import { ExampleProps } from '~/example/entities/example.props';
-import { ExampleId, Email, Name } from '~/example/valueObjects';
+import { ExampleId, Name } from '~/example/valueObjects';
+import { EmailAddress } from '~/common/valueObjects';
 
 type ExmaplesProps = Omit<ExampleProps, 'detail'>;
 
@@ -11,7 +12,7 @@ export class ExamplesItem extends Entity<ExampleId, ExmaplesProps> {
 
   static fromRepository(
     id: ExampleId,
-    email: Email,
+    email: EmailAddress,
     name: Name,
   ): ExamplesItem {
     const value: ExmaplesProps = { name, email };

@@ -12,7 +12,7 @@ import {
   ExamplesItem,
   ExampleDetail,
 } from '~/example/entities';
-import { Detail, Email, ExampleId, Name } from '~/example/valueObjects';
+import { Detail, ExampleId, Name } from '~/example/valueObjects';
 import {
   ExampleCreateDto,
   ExampleDetailDto,
@@ -20,6 +20,7 @@ import {
   ExampleListQueryDto,
 } from '~/example/interfaces';
 import { ExampleDetailQueryHandler } from './usecases/handlers/example.detail';
+import { EmailAddress } from '~/common/valueObjects';
 
 describe(ExampleController.name, () => {
   let controller: ExampleController;
@@ -69,7 +70,7 @@ describe(ExampleController.name, () => {
       testDto.detail = 'test_detail';
 
       const example = Example.fromCommand(new ExampleId(testId), {
-        email: new Email(testDto.email),
+        email: new EmailAddress(testDto.email),
         name: new Name(testDto.name),
         detail: new Detail(testDto.detail),
       });
@@ -101,7 +102,7 @@ describe(ExampleController.name, () => {
         p.append(
           ExamplesItem.fromRepository(
             new ExampleId(c.id),
-            new Email(c.email),
+            new EmailAddress(c.email),
             new Name(c.name),
           ),
         );
@@ -128,7 +129,7 @@ describe(ExampleController.name, () => {
         detail: 'testtesttesttesttest',
       };
       const detail = ExampleDetail.fromRepository(new ExampleId(testData.id), {
-        email: new Email(testData.email),
+        email: new EmailAddress(testData.email),
         name: new Name(testData.name),
         detail: new Detail(testData.detail),
       });

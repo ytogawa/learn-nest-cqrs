@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsString, IsEmail, MaxLength } from 'class-validator';
+import { EmailAddress } from '~/common/valueObjects';
 import { ExampleProps } from '~/example/entities/example.props';
-import { Email, Name, Detail } from '~/example/valueObjects';
+import { Name, Detail } from '~/example/valueObjects';
 
 export class ExampleCreateDto {
   @IsNotEmpty()
@@ -18,7 +19,7 @@ export class ExampleCreateDto {
 
   static toDomain(self: ExampleCreateDto): ExampleProps {
     return {
-      email: new Email(self.email),
+      email: new EmailAddress(self.email),
       name: new Name(self.name),
       detail: new Detail(self.detail),
     };

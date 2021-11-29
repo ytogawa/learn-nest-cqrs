@@ -1,7 +1,8 @@
-import { Email, Name, Detail } from '~/example/valueObjects';
+import { EmailAddress } from '~/common/valueObjects';
+import { Name, Detail } from '~/example/valueObjects';
 
 export type ExampleProps = {
-  email: Email;
+  email: EmailAddress;
   name: Name;
   detail: Detail;
 };

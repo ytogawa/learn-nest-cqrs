@@ -1,5 +1,6 @@
-import { ExampleDetail } from './example.detail';
-import { ExampleId, Name, Email, Detail } from '../valueObjects';
+import { EmailAddress } from '~/common/valueObjects';
+import { ExampleDetail } from '~/example/entities/example.detail';
+import { ExampleId, Name, Detail } from '~/example/valueObjects';
 
 describe(ExampleDetail.name, () => {
   describe(ExampleDetail.fromRepository.name, () => {
@@ -11,7 +12,7 @@ describe(ExampleDetail.name, () => {
         detail: 'test_detail',
       };
       const example = ExampleDetail.fromRepository(new ExampleId(testData.id), {
-        email: new Email(testData.email),
+        email: new EmailAddress(testData.email),
         name: new Name(testData.name),
         detail: new Detail(testData.detail),
       });

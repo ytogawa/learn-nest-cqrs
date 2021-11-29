@@ -3,7 +3,7 @@ import { deepEqual } from '../utils/deepEqual';
 export class ValueObject<T> {
   protected readonly _value: T;
 
-  protected constructor(value: T) {
+  constructor(value: T) {
     this._value = Object.freeze(value);
   }
 

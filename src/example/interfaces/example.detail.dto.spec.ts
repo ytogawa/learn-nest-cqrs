@@ -1,5 +1,6 @@
+import { EmailAddress } from '~/common/valueObjects';
 import { Example } from '~/example/entities/example';
-import { Email, Name, Detail, ExampleId } from '../valueObjects';
+import { Name, Detail, ExampleId } from '../valueObjects';
 import { ExampleDetailDto } from './example.detail.dto';
 
 describe(ExampleDetailDto.name, () => {
@@ -13,7 +14,7 @@ describe(ExampleDetailDto.name, () => {
       };
 
       const example = Example.fromCommand(new ExampleId(testData.id), {
-        email: new Email(testData.email),
+        email: new EmailAddress(testData.email),
         name: new Name(testData.name),
         detail: new Detail(testData.detail),
       });

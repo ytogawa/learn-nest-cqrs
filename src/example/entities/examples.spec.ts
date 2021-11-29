@@ -1,6 +1,7 @@
+import { EmailAddress } from '~/common/valueObjects';
 import { Examples } from '~/example/entities/examples';
 import { ExamplesItem } from '~/example/entities/examples.item';
-import { Email, ExampleId, Name } from '../valueObjects';
+import { ExampleId, Name } from '../valueObjects';
 
 describe(Examples.name, () => {
   describe(Examples.fromRepository.name, () => {
@@ -20,7 +21,7 @@ describe(Examples.name, () => {
       const examples = Examples.fromRepository();
       const item = ExamplesItem.fromRepository(
         new ExampleId(testData.id),
-        new Email(testData.email),
+        new EmailAddress(testData.email),
         new Name(testData.name),
       );
       examples.append(item);

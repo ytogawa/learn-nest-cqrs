@@ -4,8 +4,9 @@ import { ExampleReadRepository } from '~/example/repositories/example.read.repos
 import { ExamplePrismaRepository } from '~/example/repositories/example.prisma.repository';
 import { ExampleDetailQueryHandler } from '~/example/usecases/handlers/example.detail';
 import { ExampleDetail } from '~/example/entities';
-import { ExampleDetailQuery } from '../example.detail.query';
-import { ExampleId, Detail, Email, Name } from '~/example/valueObjects';
+import { ExampleDetailQuery } from '~/example/usecases/example.detail.query';
+import { EmailAddress } from '~/common/valueObjects';
+import { ExampleId, Detail, Name } from '~/example/valueObjects';
 
 describe(ExampleDetailQueryHandler.name, () => {
   let detailQuery: ExampleDetailQueryHandler;
@@ -35,7 +36,7 @@ describe(ExampleDetailQueryHandler.name, () => {
     it('リポジトリで検索した内容をそのまま返せる', async () => {
       const id = new ExampleId('4f0660c4-f77a-4ea9-bc82-55cd0e28c333');
       const testData = ExampleDetail.fromRepository(id, {
-        email: new Email('test@example.com'),
+        email: new EmailAddress('test@example.com'),
         name: new Name('test'),
         detail: new Detail('test_detail'),
       });

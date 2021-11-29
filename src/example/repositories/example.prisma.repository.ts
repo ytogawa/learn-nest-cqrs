@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ExampleId, Name, Email, Detail } from '~/example/valueObjects';
+import { EmailAddress } from '~/common/valueObjects';
+import { ExampleId, Name, Detail } from '~/example/valueObjects';
 import {
   Example,
   Examples,
@@ -25,7 +26,7 @@ export class ExamplePrismaRepository
       },
     });
     return Example.fromRepository(new ExampleId(saved.id), {
-      email: new Email(saved.email),
+      email: new EmailAddress(saved.email),
       name: new Name(saved.name),
       detail: new Detail(saved.detail),
     });
@@ -37,7 +38,7 @@ export class ExamplePrismaRepository
     return values.reduce((p, c) => {
       const item = ExamplesItem.fromRepository(
         new ExampleId(c.id),
-        new Email(c.email),
+        new EmailAddress(c.email),
         new Name(c.name),
       );
       p.append(item);
@@ -63,7 +64,7 @@ export class ExamplePrismaRepository
   async findById(id: ExampleId): Promise<ExampleDetail> {
     const found = await prisma.example.findUnique({ where: { id: id.value } });
     const example = ExampleDetail.fromRepository(new ExampleId(found.id), {
-      email: new Email(found.email),
+      email: new EmailAddress(found.email),
       name: new Name(found.name),
       detail: new Detail(found.detail),
     });

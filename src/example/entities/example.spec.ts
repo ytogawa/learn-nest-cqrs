@@ -1,5 +1,6 @@
 import { Example } from './example';
-import { ExampleId, Name, Email, Detail } from '../valueObjects';
+import { ExampleId, Name, Detail } from '~/example/valueObjects';
+import { EmailAddress } from '~/common/valueObjects';
 
 describe(Example.name, () => {
   describe(Example.fromCommand.name, () => {
@@ -11,7 +12,7 @@ describe(Example.name, () => {
         detail: 'test_detail',
       };
       const example = Example.fromCommand(new ExampleId(testData.id), {
-        email: new Email(testData.email),
+        email: new EmailAddress(testData.email),
         name: new Name(testData.name),
         detail: new Detail(testData.detail),
       });

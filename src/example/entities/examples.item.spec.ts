@@ -1,5 +1,6 @@
+import { EmailAddress } from '~/common/valueObjects';
 import { ExamplesItem } from '~/example/entities/examples.item';
-import { ExampleId, Name, Email } from '~/example/valueObjects';
+import { ExampleId, Name } from '~/example/valueObjects';
 
 describe(ExamplesItem.name, () => {
   describe(ExamplesItem.fromRepository.name, () => {
@@ -11,7 +12,7 @@ describe(ExamplesItem.name, () => {
       };
       const item = ExamplesItem.fromRepository(
         new ExampleId(testData.id),
-        new Email(testData.email),
+        new EmailAddress(testData.email),
         new Name(testData.name),
       );
       expect(item).toBeDefined();

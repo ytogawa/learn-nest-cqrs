@@ -2,13 +2,11 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
 import { Example, ExampleProps } from '~/example/entities';
 import { ExamplePrismaRepository } from '~/example/repositories/example.prisma.repository';
-import { Detail, Email, ExampleId, Name } from '~/example/valueObjects';
+import { EmailAddress } from '~/common/valueObjects';
+import { Detail, ExampleId, Name } from '~/example/valueObjects';
 import { ExampleCreateCommandHandler } from './example.create';
 import { ExampleCreateCommand } from '../example.create.command';
-import { genUUID } from '~/utils/genUUID';
 import { ExampleWriteRepository } from '~/example/repositories/example.write.repository';
-
-jest.mock('~/utils/genUUID');
 
 describe(ExampleCreateCommandHandler.name, () => {
   let createCommand: ExampleCreateCommandHandler;
@@ -46,7 +44,7 @@ describe(ExampleCreateCommandHandler.name, () => {
         detail: 'test_detail',
       };
       const props: ExampleProps = {
-        email: new Email(testData.email),
+        email: new EmailAddress(testData.email),
         name: new Name(testData.name),
         detail: new Detail(testData.detail),
       };
