@@ -1,3 +1,3 @@
-import { UUIDValueObject } from '~/utils/uuidValueObject';
+import { UUIDValueObject } from '~/common/valueObjects';
 
 export class ExampleId extends UUIDValueObject {}

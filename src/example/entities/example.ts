@@ -1,4 +1,4 @@
-import { Entity } from '~/utils/entity';
+import { Entity } from '~/common/entities';
 import { ExampleProps } from '~/example/entities/example.props';
 import { ExampleId } from '~/example/valueObjects/example.id';
 

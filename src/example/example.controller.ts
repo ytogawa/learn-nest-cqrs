@@ -1,15 +1,16 @@
 import { Controller, Get, Post, Body, Query, Param } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ExampleCreateCommand, ExampleSearchQuery } from '~/example/usecases';
-import { ExampleDetail, Examples } from './entities';
+import { Example, ExampleDetail, Examples } from '~/example/entities';
 import {
+  ExampleDto,
   ExampleCreateDto,
   ExampleDetailDto,
   ExampleIdDto,
   ExampleListQueryDto,
   ExampleListDto,
 } from '~/example/interfaces';
-import { ExampleDetailQuery } from './usecases/example.detail.query';
+import { ExampleDetailQuery } from '~/example/usecases/example.detail.query';
 
 @Controller('examples')
 export class ExampleController {
@@ -20,14 +21,14 @@ export class ExampleController {
 
   @Get()
   async list(@Query() dto: ExampleListQueryDto): Promise<ExampleListDto> {
-    const cond = ExampleListQueryDto.toEntity(dto);
+    const cond = ExampleListQueryDto.toDomain(dto);
 
     const query = new ExampleSearchQuery(cond);
     const examples = await this.queryBus.execute<ExampleSearchQuery, Examples>(
       query,
     );
 
-    return ExampleListDto.fromEntity(examples);
+    return ExampleListDto.fromDomain(examples);
   }
 
   @Get(':id')
@@ -44,15 +45,15 @@ export class ExampleController {
   }
 
   @Post()
-  async post(@Body() dto: ExampleCreateDto): Promise<ExampleDetailDto> {
+  async post(@Body() dto: ExampleCreateDto): Promise<ExampleDto> {
     const props = ExampleCreateDto.toDomain(dto);
 
     const command = new ExampleCreateCommand(props);
-    const exampleDetail = await this.commandBus.execute<
+    const example = await this.commandBus.execute<
       ExampleCreateCommand,
-      ExampleDetail
+      Example
     >(command);
 
-    return ExampleDetailDto.fromDomain(exampleDetail);
+    return ExampleDto.fromDomain(example);
   }
 }

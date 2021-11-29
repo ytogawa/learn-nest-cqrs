@@ -5,7 +5,7 @@ import { ExampleListDto } from '~/example/interfaces/example.list.dto';
 import { EmailAddress } from '~/common/valueObjects';
 
 describe(ExampleListDto.name, () => {
-  describe(ExampleListDto.fromEntity.name, () => {
+  describe(ExampleListDto.fromDomain.name, () => {
     it('エンティティから生成できる', () => {
       const testData = {
         id: '826fee31-a75b-46ba-8079-54b0fdb97faf',
@@ -20,7 +20,7 @@ describe(ExampleListDto.name, () => {
           new Name(testData.name),
         ),
       );
-      const dto = ExampleListDto.fromEntity(examples);
+      const dto = ExampleListDto.fromDomain(examples);
       expect(dto.length).toBe(1);
       expect(dto[0].id).toBe(testData.id);
       expect(dto[0].email).toBe(testData.email);

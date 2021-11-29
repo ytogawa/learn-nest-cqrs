@@ -1,4 +1,4 @@
-import { ExampleIdDto } from './example.id.dto';
+import { ExampleIdDto } from '~/example/interfaces/example.id.dto';
 
 describe(ExampleIdDto.name, () => {
   describe(ExampleIdDto.toDomain.name, () => {

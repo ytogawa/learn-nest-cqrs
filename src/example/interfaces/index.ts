@@ -1,3 +1,4 @@
+export * from './example.dto';
 export * from './example.create.dto';
 export * from './example.detail.dto';
 export * from './example.id.dto';

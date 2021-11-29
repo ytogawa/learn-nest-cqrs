@@ -10,7 +10,7 @@ export class ExampleListQueryDto {
   @IsString()
   email?: string;
 
-  static toEntity(self: ExampleListQueryDto): ExampleSearchConditions {
+  static toDomain(self: ExampleListQueryDto): ExampleSearchConditions {
     return ExampleSearchConditions.fromQuery(self.email, self.name);
   }
 }

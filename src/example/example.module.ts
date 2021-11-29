@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
-import { ExampleController } from './example.controller';
-import * as Handlers from './usecases/handlers';
-import { ExamplePrismaRepository } from './repositories/example.prisma.repository';
+import { ExampleController } from '~/example/example.controller';
+import * as Handlers from '~/example/usecases/handlers';
+import { ExamplePrismaRepository } from '~/example/repositories/example.prisma.repository';
 
 @Module({
   imports: [CqrsModule],

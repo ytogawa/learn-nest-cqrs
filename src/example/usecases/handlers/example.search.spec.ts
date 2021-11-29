@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing';
 import { ExampleReadRepository } from '~/example/repositories/example.read.repository';
 import { ExamplePrismaRepository } from '~/example/repositories/example.prisma.repository';
 import { ExampleSearchQueryHandler } from '~/example/usecases/handlers/example.search';
-import { ExampleSearchQuery } from '..';
+import { ExampleSearchQuery } from '~/example/usecases/example.srarch.query';
 import { Examples, ExampleSearchConditions } from '~/example/entities';
 
 describe(ExampleSearchQueryHandler.name, () => {

@@ -5,7 +5,7 @@ import { ExamplePrismaRepository } from '~/example/repositories/example.prisma.r
 import { EmailAddress } from '~/common/valueObjects';
 import { Detail, ExampleId, Name } from '~/example/valueObjects';
 import { ExampleCreateCommandHandler } from './example.create';
-import { ExampleCreateCommand } from '../example.create.command';
+import { ExampleCreateCommand } from '~/example/usecases/example.create.command';
 import { ExampleWriteRepository } from '~/example/repositories/example.write.repository';
 
 describe(ExampleCreateCommandHandler.name, () => {

@@ -1,5 +1,5 @@
 import { InternalServerErrorException } from '@nestjs/common';
-import { ValueObject } from '~/utils/valueObject';
+import { ValueObject } from '~/common/valueObjects';
 
 export class Detail extends ValueObject<string> {
   static readonly MAX_LENGTH = 500;

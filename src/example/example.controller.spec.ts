@@ -19,7 +19,7 @@ import {
   ExampleListDto,
   ExampleListQueryDto,
 } from '~/example/interfaces';
-import { ExampleDetailQueryHandler } from './usecases/handlers/example.detail';
+import { ExampleDetailQueryHandler } from '~/example/usecases/handlers/example.detail';
 import { EmailAddress } from '~/common/valueObjects';
 
 describe(ExampleController.name, () => {
@@ -114,7 +114,7 @@ describe(ExampleController.name, () => {
         .mockImplementation((_query) => Promise.resolve(examples));
 
       const request = new ExampleListQueryDto();
-      const response = ExampleListDto.fromEntity(examples);
+      const response = ExampleListDto.fromDomain(examples);
       expect(await controller.list(request)).toStrictEqual(response);
       expect(searchQuery.execute).toBeCalled();
     });

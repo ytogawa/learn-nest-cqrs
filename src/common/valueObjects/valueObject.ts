@@ -1,4 +1,4 @@
-import { deepEqual } from '../utils/deepEqual';
+import { deepEqual } from '~/utils';
 
 export class ValueObject<T> {
   protected readonly _value: T;

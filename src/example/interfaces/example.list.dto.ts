@@ -16,7 +16,7 @@ export class ExampleListItemDto {
 }
 
 export class ExampleListDto extends Array<ExampleListItemDto> {
-  static fromEntity(examples: Examples): ExampleListDto {
+  static fromDomain(examples: Examples): ExampleListDto {
     const dto = new ExampleListDto();
     for (const example of examples) {
       dto.push({

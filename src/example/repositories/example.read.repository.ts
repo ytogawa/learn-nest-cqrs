@@ -3,7 +3,7 @@ import {
   ExampleSearchConditions,
   ExampleDetail,
 } from '~/example/entities';
-import { ExampleId } from '../valueObjects';
+import { ExampleId } from '~/example/valueObjects';
 
 export interface ExampleReadRepository {
   findByCondition(cond: ExampleSearchConditions): Promise<Examples>;
