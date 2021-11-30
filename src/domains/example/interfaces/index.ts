@@ -1,6 +1,14 @@
-export * from './example.dto';
+// created from 'create-ts-index'
+
+export * from './example.create.dto.spec';
 export * from './example.create.dto';
+export * from './example.detail.dto.spec';
 export * from './example.detail.dto';
+export * from './example.dto.spec';
+export * from './example.dto';
+export * from './example.id.dto.spec';
 export * from './example.id.dto';
+export * from './example.list.dto.spec';
 export * from './example.list.dto';
+export * from './example.list.query.dto.spec';
 export * from './example.list.query.dto';

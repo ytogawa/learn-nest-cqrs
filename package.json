@@ -18,7 +18,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "index:create": "find src -type d -depth 1 | xargs npx create-ts-index create",
+    "index:clean": "npx create-ts-index clean src"
   },
   "dependencies": {
     "@nestjs/common": "^8.2.3",
@@ -48,6 +50,7 @@
     "@types/uuid": "^8.3.3",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
+    "create-ts-index": "^1.13.6",
     "eslint": "^8.3.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
