@@ -1,4 +1,4 @@
-import { ExampleSearchConditions } from './example.search.conditions';
+import { ExampleSearchConditions } from './example-search-conditions';
 
 describe(ExampleSearchConditions.name, () => {
   describe(ExampleSearchConditions.fromQuery.name, () => {

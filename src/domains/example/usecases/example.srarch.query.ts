@@ -1,4 +1,4 @@
-import { ExampleSearchConditions } from '~/domains/example/entities/example.search.conditions';
+import { ExampleSearchConditions } from '~/domains/example/entities';
 
 export class ExampleSearchQuery {
   private readonly _cond: ExampleSearchConditions;

@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString } from 'class-validator';
-import { ExampleId } from '~/domains/example/valueObjects';
+import { ExampleId } from '~/domains/example/value-objects';
 
 export class ExampleIdDto {
   @IsNotEmpty()

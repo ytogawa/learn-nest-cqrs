@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { EmailAddress } from '~/common/valueObjects';
-import { ExampleId, Name, Detail } from '~/domains/example/valueObjects';
+import { EmailAddress } from '~/common/value-objects';
+import { ExampleId, Name, Detail } from '~/domains/example/value-objects';
 import {
   Example,
   Examples,

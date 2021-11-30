@@ -5,7 +5,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
-import { Rfc7807ExceptionFilter } from './common/errors/rfc7807.exception.filter';
+import { Rfc7807ExceptionFilter } from './common/errors';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(

@@ -1,7 +1,7 @@
-import { EmailAddress } from '~/common/valueObjects';
+import { EmailAddress } from '~/common/value-objects';
 import { Example } from '~/domains/example/entities/example';
-import { Name, Detail, ExampleId } from '~/domains/example/valueObjects';
-import { ExampleDetailDto } from '~/domains/example/interfaces/example.detail.dto';
+import { Name, Detail, ExampleId } from '~/domains/example/value-objects';
+import { ExampleDetailDto } from '~/domains/example/interfaces/example-detail-dto';
 
 describe(ExampleDetailDto.name, () => {
   describe(ExampleDetailDto.fromDomain.name, () => {

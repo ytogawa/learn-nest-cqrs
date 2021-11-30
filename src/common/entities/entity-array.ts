@@ -1,5 +1,5 @@
 import { Entity } from '~/common/entities';
-import { ValueObject } from '~/common/valueObjects';
+import { ValueObject } from '~/common/value-objects';
 
 export class EntityArray<
   T extends Entity<ValueObject<string | number>, unknown>,

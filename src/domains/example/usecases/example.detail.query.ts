@@ -1,4 +1,4 @@
-import { ExampleId } from '~/domains/example/valueObjects/example.id';
+import { ExampleId } from '~/domains/example/value-objects';
 
 export class ExampleDetailQuery {
   private readonly _id: ExampleId;

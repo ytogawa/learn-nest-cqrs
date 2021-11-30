@@ -1,7 +1,7 @@
 import { Entity } from '~/common/entities';
-import { ExampleProps } from '~/domains/example/entities/example.props';
-import { ExampleId, Name } from '~/domains/example/valueObjects';
-import { EmailAddress } from '~/common/valueObjects';
+import { ExampleProps } from '~/domains/example/entities/example-props';
+import { ExampleId, Name } from '~/domains/example/value-objects';
+import { EmailAddress } from '~/common/value-objects';
 
 type ExmaplesProps = Omit<ExampleProps, 'detail'>;
 

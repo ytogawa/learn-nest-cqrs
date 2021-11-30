@@ -1,4 +1,4 @@
-import { ExampleCreateDto } from './example.create.dto';
+import { ExampleCreateDto } from './example-create-dto';
 
 describe(ExampleCreateDto.name, () => {
   describe(ExampleCreateDto.toDomain.name, () => {

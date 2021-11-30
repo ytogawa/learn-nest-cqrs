@@ -1,4 +1,4 @@
-import { ValueObject } from '~/common/valueObjects';
+import { ValueObject } from '~/common/value-objects';
 
 export class Entity<IdType extends ValueObject<string | number>, ValueType> {
   private _id: IdType;

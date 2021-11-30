@@ -1,4 +1,4 @@
-import { ExampleListQueryDto } from '~/domains/example/interfaces/example.list.query.dto';
+import { ExampleListQueryDto } from '~/domains/example/interfaces/example-list-query-dto';
 
 describe(ExampleListQueryDto.name, () => {
   describe(ExampleListQueryDto.toDomain.name, () => {

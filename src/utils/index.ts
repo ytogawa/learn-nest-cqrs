@@ -1,5 +1,5 @@
 // created from 'create-ts-index'
 
-export * from './deepEqual';
-export * from './genUUID';
+export * from './deep-equal';
+export * from './generate-uuid';
 export * from './prisma';

@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString, IsEmail, MaxLength } from 'class-validator';
-import { EmailAddress } from '~/common/valueObjects';
-import { ExampleProps } from '~/domains/example/entities/example.props';
-import { Name, Detail } from '~/domains/example/valueObjects';
+import { EmailAddress } from '~/common/value-objects';
+import { ExampleProps } from '~/domains/example/entities';
+import { Name, Detail } from '~/domains/example/value-objects';
 
 export class ExampleCreateDto {
   @IsNotEmpty()

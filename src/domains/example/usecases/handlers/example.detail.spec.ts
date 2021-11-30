@@ -5,8 +5,8 @@ import { ExamplePrismaRepository } from '~/domains/example/repositories/example.
 import { ExampleDetailQueryHandler } from '~/domains/example/usecases/handlers/example.detail';
 import { ExampleDetail } from '~/domains/example/entities';
 import { ExampleDetailQuery } from '~/domains/example/usecases/example.detail.query';
-import { EmailAddress } from '~/common/valueObjects';
-import { ExampleId, Detail, Name } from '~/domains/example/valueObjects';
+import { EmailAddress } from '~/common/value-objects';
+import { ExampleId, Detail, Name } from '~/domains/example/value-objects';
 
 describe(ExampleDetailQueryHandler.name, () => {
   let detailQuery: ExampleDetailQueryHandler;

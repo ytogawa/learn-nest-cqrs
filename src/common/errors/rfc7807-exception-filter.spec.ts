@@ -6,8 +6,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
-import { Rfc7807ExceptionFilter } from '~/common/errors/rfc7807.exception.filter';
-import { DomainError } from './domain.error';
+import { Rfc7807ExceptionFilter } from '~/common/errors/rfc7807-exception-filter';
+import { DomainException } from './domain.exception';
 
 const mockResponse = {
   type: jest.fn((_contentType: string) => mockResponse),
@@ -102,12 +102,12 @@ describe(Rfc7807ExceptionFilter.name, () => {
         });
       });
 
-      it('DomainError', () => {
+      it('DomainExceptionをRFC7807形式に変換できる', () => {
         const filter = new Rfc7807ExceptionFilter();
-        const exception = new DomainError('test');
+        const exception = new DomainException('test');
         filter.catch(exception, mockHost);
         expect(mockResponse.send.mock.calls[0][0]).toStrictEqual({
-          title: 'DomainError',
+          title: 'DomainException',
           status: 500,
           detail: 'test',
         });

@@ -1,6 +1,6 @@
-import { EmailAddress } from '~/common/valueObjects';
-import { ExampleDetail } from '~/domains/example/entities/example.detail';
-import { ExampleId, Name, Detail } from '~/domains/example/valueObjects';
+import { EmailAddress } from '~/common/value-objects';
+import { ExampleDetail } from '~/domains/example/entities/example-detail';
+import { ExampleId, Name, Detail } from '~/domains/example/value-objects';
 
 describe(ExampleDetail.name, () => {
   describe(ExampleDetail.fromRepository.name, () => {

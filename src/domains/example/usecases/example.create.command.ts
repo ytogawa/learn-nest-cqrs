@@ -1,4 +1,4 @@
-import { ExampleProps } from '~/domains/example/entities/example.props';
+import { ExampleProps } from '~/domains/example/entities';
 
 export class ExampleCreateCommand {
   private readonly _props: ExampleProps;

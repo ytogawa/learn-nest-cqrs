@@ -12,7 +12,7 @@ import {
   ExamplesItem,
   ExampleDetail,
 } from '~/domains/example/entities';
-import { Detail, ExampleId, Name } from '~/domains/example/valueObjects';
+import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
 import {
   ExampleCreateDto,
   ExampleDetailDto,
@@ -20,7 +20,7 @@ import {
   ExampleListQueryDto,
 } from '~/domains/example/interfaces';
 import { ExampleDetailQueryHandler } from '~/domains/example/usecases/handlers/example.detail';
-import { EmailAddress } from '~/common/valueObjects';
+import { EmailAddress } from '~/common/value-objects';
 
 describe(ExampleController.name, () => {
   let controller: ExampleController;

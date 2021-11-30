@@ -1,4 +1,4 @@
 import { v4 } from 'uuid';
-export function genUUID(): string {
+export function generateUuid(): string {
   return v4();
 }
