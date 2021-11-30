@@ -1,6 +1,9 @@
 import { Controller, Get, Post, Body, Query, Param } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { ExampleCreateCommand, ExampleSearchQuery } from '~/domains/example/usecases';
+import {
+  ExampleCreateCommand,
+  ExampleSearchQuery,
+} from '~/domains/example/usecases';
 import { Example, ExampleDetail, Examples } from '~/domains/example/entities';
 import {
   ExampleDto,
