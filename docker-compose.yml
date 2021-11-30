@@ -15,24 +15,7 @@ services:
     working_dir: /app
     restart: always
     tty: true
-    command:
-      - ash
-      - -c
-      - |
-        if [ ! -e pkg-hash ]; then
-          echo run npm ci
-          npm ci
-          md5sum package-lock.json > pkg-hash
-        fi
-        md5sum < pkg-hash
-        ret=$?
-        if [ $ret != 0 ]; then
-          echo run npm ci
-          npm ci
-          md5sum package-lock.json > pkg-hash
-        fi
-        npm run build
-        npm run start:debug
+    command: sh entry.sh
     depends_on:
       database:
         condition: service_healthy
