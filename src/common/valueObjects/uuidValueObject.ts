@@ -1,5 +1,5 @@
 import { InternalServerErrorException } from '@nestjs/common';
-import { ValueObject } from '~/common/valueObjects';
+import { ValueObject } from '~/common/valueObjects/valueObject';
 import { genUUID } from '~/utils';
 
 const regexp =

@@ -1,4 +1,4 @@
-import { ValueObject } from '~/common/valueObjects';
+import { ValueObject } from '~/common/valueObjects/valueObject';
 
 export class EmailAddress extends ValueObject<string> {}
 export class EmailTitle extends ValueObject<string> {}

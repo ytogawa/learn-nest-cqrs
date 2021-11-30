@@ -5,6 +5,5 @@ export * from './interfaces';
 export * from './repositories';
 export * from './usecases';
 export * from './valueObjects';
-export * from './example.controller.spec';
 export * from './example.controller';
 export * from './example.module';
