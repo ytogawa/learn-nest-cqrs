@@ -13,7 +13,7 @@ describe(ExampleDto.name, () => {
         detail: 'test3',
       };
 
-      const example = Example.fromCommand(new ExampleId(testData.id), {
+      const example = Example.withCreate(new ExampleId(testData.id), {
         email: new EmailAddress(testData.email),
         name: new Name(testData.name),
         detail: new Detail(testData.detail),

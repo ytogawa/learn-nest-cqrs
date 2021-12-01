@@ -69,7 +69,7 @@ describe(ExampleController.name, () => {
       testDto.name = 'test_name';
       testDto.detail = 'test_detail';
 
-      const example = Example.fromCommand(new ExampleId(testId), {
+      const example = Example.withCreate(new ExampleId(testId), {
         email: new EmailAddress(testDto.email),
         name: new Name(testDto.name),
         detail: new Detail(testDto.detail),

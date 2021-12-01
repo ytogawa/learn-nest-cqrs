@@ -1,27 +1,14 @@
 import { ValueObject } from '~/common/value-objects';
 
 export class Entity<IdType extends ValueObject<string | number>, ValueType> {
-  private _id: IdType;
-  private _props: ValueType;
+  private readonly _props: ValueType;
 
-  protected constructor(id: IdType, props: ValueType) {
-    this._id = id;
+  protected constructor(private readonly _id: IdType, props: ValueType) {
     this._props = { ...props };
-  }
-
-  toJSON() {
-    return {
-      id: this.id.toJson(),
-      ...this._props,
-    };
   }
 
   get id() {
     return this._id;
-  }
-
-  protected set id(value: IdType) {
-    this._id = value;
   }
 
   get props() {

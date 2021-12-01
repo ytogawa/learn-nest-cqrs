@@ -7,10 +7,6 @@ export class ValueObject<T> {
     this._value = Object.freeze(value);
   }
 
-  toJson() {
-    return this._value;
-  }
-
   get value(): T {
     return this._value;
   }

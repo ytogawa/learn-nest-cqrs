@@ -3,7 +3,7 @@ import { ExampleId, Name, Detail } from '~/domains/example/value-objects';
 import { EmailAddress } from '~/common/value-objects';
 
 describe(Example.name, () => {
-  describe(Example.fromCommand.name, () => {
+  describe(Example.withCreate.name, () => {
     it('インスタンスが生成できる', () => {
       const testData = {
         id: '064f288a-9e37-480c-9b47-7f3a84cf0af1',
@@ -11,7 +11,7 @@ describe(Example.name, () => {
         name: 'test_name',
         detail: 'test_detail',
       };
-      const example = Example.fromCommand(new ExampleId(testData.id), {
+      const example = Example.withCreate(new ExampleId(testData.id), {
         email: new EmailAddress(testData.email),
         name: new Name(testData.name),
         detail: new Detail(testData.detail),

@@ -1,5 +1,5 @@
 import { EmailAddress } from '~/common/value-objects';
-import { Example } from '~/domains/example/entities/example';
+import { ExampleDetail } from '~/domains/example/entities';
 import { Name, Detail, ExampleId } from '~/domains/example/value-objects';
 import { ExampleDetailDto } from '~/domains/example/interfaces/example-detail-dto';
 
@@ -13,7 +13,7 @@ describe(ExampleDetailDto.name, () => {
         detail: 'test3',
       };
 
-      const example = Example.fromCommand(new ExampleId(testData.id), {
+      const example = ExampleDetail.fromRepository(new ExampleId(testData.id), {
         email: new EmailAddress(testData.email),
         name: new Name(testData.name),
         detail: new Detail(testData.detail),
