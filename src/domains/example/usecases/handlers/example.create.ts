@@ -16,9 +16,10 @@ export class ExampleCreateCommandHandler
   ) {}
 
   async execute(command: ExampleCreateCommand): Promise<Example> {
-    const obj = Example.withCreate(new ExampleId(), command.props);
-    const result = await this.repository.create(obj);
-    obj.commit(this.eventBus);
+    const example = new Example(new ExampleId());
+    const created = example.withCreate(command.props);
+    const result = await this.repository.create(created);
+    created.commit(this.eventBus);
     return result;
   }
 }

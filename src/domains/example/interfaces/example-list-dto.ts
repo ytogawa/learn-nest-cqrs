@@ -17,14 +17,12 @@ export class ExampleListItemDto {
 
 export class ExampleListDto extends Array<ExampleListItemDto> {
   static fromDomain(examples: Examples): ExampleListDto {
-    const dto = new ExampleListDto();
-    for (const example of examples) {
-      dto.push({
-        id: example.id.value,
-        email: example.props.email.value,
-        name: example.props.name.value,
-      });
-    }
-    return dto;
+    return examples.map((example) => {
+      return {
+        id: example.id,
+        email: example.email,
+        name: example.name,
+      };
+    });
   }
 }

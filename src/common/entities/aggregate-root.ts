@@ -1,24 +1,36 @@
 import { EventBus } from '@nestjs/cqrs';
 import { Entity } from './entity';
+import { DomainEvent } from './domain-event';
+import { DomainException } from '~/common/errors';
 import { ValueObject } from '../value-objects';
 
-export interface DomainEvent<T extends Entity<any, any> = Entity<any, any>> {
-  apply(obj: T): void;
-}
-
-export class AggregateRoot<
-  IdType extends ValueObject<string | number>,
+export abstract class AggregateRoot<
+  IdType extends ValueObject<unknown, string>,
   ValueType,
-  EventBase extends DomainEvent = DomainEvent,
-> extends Entity<IdType, ValueType> {
+  EventBase extends DomainEvent<IdType> = DomainEvent<IdType>,
+> extends Entity<IdType, Partial<ValueType>> {
   private readonly _events: EventBase[] = [];
 
-  apply(event: EventBase) {
-    this._events.push(event);
-    event.apply(this);
+  constructor(id: IdType, props?: Partial<ValueType> | undefined) {
+    super(id, props ?? {});
   }
 
-  reset() {
+  apply(event: EventBase): void {
+    this.checkCanApply(event);
+    this.handle(event);
+    this._events.push(event);
+  }
+
+  protected abstract handle(event: EventBase): void;
+
+  private checkCanApply(event: EventBase): void {
+    if (this.id !== event.aggregateId) {
+      throw new DomainException('Applying event to different entities.');
+    }
+    return;
+  }
+
+  reset(): void {
     this._events.length = 0;
   }
 

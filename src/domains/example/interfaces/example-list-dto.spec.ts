@@ -13,7 +13,7 @@ describe(ExampleListDto.name, () => {
         name: 'test',
       };
       const examples = Examples.fromRepository();
-      examples.append(
+      examples.push(
         ExamplesItem.fromRepository(
           new ExampleId(testData.id),
           new EmailAddress(testData.email),

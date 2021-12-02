@@ -5,7 +5,7 @@ import { DomainException } from '~/common/errors';
 const regexp =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-export class UuidValueObject extends ValueObject<string> {
+export class UuidValueObject<V extends string> extends ValueObject<string, V> {
   private static uuid(value?: string): string {
     if (value) {
       return value;

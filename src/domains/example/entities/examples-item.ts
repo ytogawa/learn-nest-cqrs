@@ -6,10 +6,6 @@ import { EmailAddress } from '~/common/value-objects';
 type ExmaplesProps = Omit<ExampleProps, 'detail'>;
 
 export class ExamplesItem extends Entity<ExampleId, ExmaplesProps> {
-  private constructor(id: ExampleId, value: ExmaplesProps) {
-    super(id, value);
-  }
-
   static fromRepository(
     id: ExampleId,
     email: EmailAddress,
@@ -17,5 +13,13 @@ export class ExamplesItem extends Entity<ExampleId, ExmaplesProps> {
   ): ExamplesItem {
     const value: ExmaplesProps = { name, email };
     return new ExamplesItem(id, value);
+  }
+
+  get email(): string {
+    return this.props.email.value;
+  }
+
+  get name(): string {
+    return this.props.name.value;
   }
 }

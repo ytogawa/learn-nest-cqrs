@@ -11,7 +11,7 @@ describe(Examples.name, () => {
     });
   });
 
-  describe(Examples.prototype.append.name, () => {
+  describe(Examples.prototype.push.name, () => {
     it('項目を追加できる', () => {
       const testData = {
         id: '263fdf4e-90d2-4a93-ad44-e35b1acafbbc',
@@ -24,10 +24,9 @@ describe(Examples.name, () => {
         new EmailAddress(testData.email),
         new Name(testData.name),
       );
-      examples.append(item);
-      for (const example of examples) {
-        expect(example).toBe(item);
-      }
+      examples.push(item);
+      expect(examples.length).toBe(1);
+      expect(examples[0]).toBe(item);
     });
   });
 });

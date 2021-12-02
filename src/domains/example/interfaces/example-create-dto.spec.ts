@@ -14,10 +14,10 @@ describe(ExampleCreateDto.name, () => {
       dto.name = testData.name;
       dto.detail = testData.detail;
 
-      const entity = ExampleCreateDto.toDomain(dto);
-      expect(entity.email.value).toBe(testData.email);
-      expect(entity.name.value).toBe(testData.name);
-      expect(entity.detail.value).toBe(testData.detail);
+      const props = ExampleCreateDto.toDomain(dto);
+      expect(props.email.value).toBe(testData.email);
+      expect(props.name.value).toBe(testData.name);
+      expect(props.detail.value).toBe(testData.detail);
     });
   });
 });

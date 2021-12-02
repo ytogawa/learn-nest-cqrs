@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { EmailAddress } from '~/common/value-objects';
 import { ExampleId, Name, Detail } from '~/domains/example/value-objects';
 import {
@@ -19,10 +19,10 @@ export class ExamplePrismaRepository
   async create(item: Example): Promise<Example> {
     const saved = await prisma.example.create({
       data: {
-        id: item.id.value,
-        email: item.props.email.value,
-        name: item.props.name.value,
-        detail: item.props.detail.value,
+        id: item.id,
+        email: item.email,
+        name: item.name,
+        detail: item.detail,
       },
     });
     return Example.fromRepository(new ExampleId(saved.id), {
@@ -30,6 +30,38 @@ export class ExamplePrismaRepository
       name: new Name(saved.name),
       detail: new Detail(saved.detail),
     });
+  }
+
+  async update(item: Example): Promise<Example> {
+    const saved = await prisma.example.update({
+      data: {
+        email: item.email,
+        name: item.name,
+        detail: item.detail,
+      },
+      where: {
+        id: item.id,
+      },
+    });
+    return Example.fromRepository(new ExampleId(saved.id), {
+      email: new EmailAddress(saved.email),
+      name: new Name(saved.name),
+      detail: new Detail(saved.detail),
+    });
+  }
+
+  async getById(id: ExampleId): Promise<Example> {
+    const found = await prisma.example.findUnique({
+      where: { id: id.value },
+      rejectOnNotFound: () =>
+        new NotFoundException(`example not found. id=${id.value}`),
+    });
+    const example = Example.fromRepository(new ExampleId(found.id), {
+      email: new EmailAddress(found.email),
+      name: new Name(found.name),
+      detail: new Detail(found.detail),
+    });
+    return example;
   }
 
   private toExamples(
@@ -41,7 +73,7 @@ export class ExamplePrismaRepository
         new EmailAddress(c.email),
         new Name(c.name),
       );
-      p.append(item);
+      p.push(item);
       return p;
     }, Examples.fromRepository());
   }

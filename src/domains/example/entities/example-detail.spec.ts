@@ -17,9 +17,9 @@ describe(ExampleDetail.name, () => {
         detail: new Detail(testData.detail),
       });
       expect(example).toBeDefined();
-      expect(example.props.email.value).toBe(testData.email);
-      expect(example.props.name.value).toBe(testData.name);
-      expect(example.props.detail.value).toBe(testData.detail);
+      expect(example.email).toBe(testData.email);
+      expect(example.name).toBe(testData.name);
+      expect(example.detail).toBe(testData.detail);
     });
   });
 });

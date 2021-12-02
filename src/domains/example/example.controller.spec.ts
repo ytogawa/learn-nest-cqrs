@@ -16,6 +16,7 @@ import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
 import {
   ExampleCreateDto,
   ExampleDetailDto,
+  ExampleDto,
   ExampleListDto,
   ExampleListQueryDto,
 } from '~/domains/example/interfaces';
@@ -69,7 +70,7 @@ describe(ExampleController.name, () => {
       testDto.name = 'test_name';
       testDto.detail = 'test_detail';
 
-      const example = Example.withCreate(new ExampleId(testId), {
+      const example = new Example(new ExampleId(testId), {
         email: new EmailAddress(testDto.email),
         name: new Name(testDto.name),
         detail: new Detail(testDto.detail),
@@ -78,7 +79,7 @@ describe(ExampleController.name, () => {
         .spyOn(createCommand, 'execute')
         .mockImplementation((_cmd) => Promise.resolve(example));
 
-      const response = ExampleDetailDto.fromDomain(example);
+      const response = ExampleDto.fromDomain(example);
       expect(await controller.post(testDto)).toStrictEqual(response);
       expect(createCommand.execute).toBeCalled();
     });
@@ -99,7 +100,7 @@ describe(ExampleController.name, () => {
         },
       ];
       const examples = testData.reduce((p, c) => {
-        p.append(
+        p.push(
           ExamplesItem.fromRepository(
             new ExampleId(c.id),
             new EmailAddress(c.email),
@@ -139,7 +140,7 @@ describe(ExampleController.name, () => {
         .mockImplementation((_query) => Promise.resolve(detail));
 
       const request = new ExampleDetailDto();
-      request.id = detail.id.value;
+      request.id = detail.id;
 
       const response = await controller.get(request);
       expect(response).toBeDefined();

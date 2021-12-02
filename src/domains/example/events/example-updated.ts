@@ -1,7 +1,7 @@
 import { DomainEvent } from '~/common/entities';
 import { ExampleId } from '..';
 
-export class ExampleCreated extends DomainEvent<ExampleId> {
+export class ExampleUpdated extends DomainEvent<ExampleId> {
   constructor(
     aggregateId: string,
     public readonly email: string,

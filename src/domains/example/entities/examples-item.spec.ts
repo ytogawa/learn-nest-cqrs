@@ -16,9 +16,9 @@ describe(ExamplesItem.name, () => {
         new Name(testData.name),
       );
       expect(item).toBeDefined();
-      expect(item.id.value).toBe('064f288a-9e37-480c-9b47-7f3a84cf0af1');
-      expect(item.props.email.value).toBe('test_email@example.com');
-      expect(item.props.name.value).toBe('test_name');
+      expect(item.id).toBe('064f288a-9e37-480c-9b47-7f3a84cf0af1');
+      expect(item.email).toBe('test_email@example.com');
+      expect(item.name).toBe('test_name');
     });
   });
 });
