@@ -6,3 +6,4 @@ export * from './example-dto';
 export * from './example-id-dto';
 export * from './example-list-dto';
 export * from './example-list-query-dto';
+export * from './example-update-dto';

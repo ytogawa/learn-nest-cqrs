@@ -1,13 +1,24 @@
-import { Controller, Get, Post, Body, Query, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Query,
+  Param,
+  Patch,
+  Logger,
+} from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {
   ExampleCreateCommand,
+  ExampleUpdateCommand,
   ExampleSearchQuery,
 } from '~/domains/example/usecases';
 import { Example, ExampleDetail, Examples } from '~/domains/example/entities';
 import {
   ExampleDto,
   ExampleCreateDto,
+  ExampleUpdateDto,
   ExampleDetailDto,
   ExampleIdDto,
   ExampleListQueryDto,
@@ -54,6 +65,23 @@ export class ExampleController {
     const command = new ExampleCreateCommand(props);
     const example = await this.commandBus.execute<
       ExampleCreateCommand,
+      Example
+    >(command);
+
+    return ExampleDto.fromDomain(example);
+  }
+
+  @Patch(':id')
+  async patch(
+    @Param() idDto: ExampleIdDto,
+    @Body() bodyDto: ExampleUpdateDto,
+  ): Promise<ExampleDto> {
+    const id = ExampleIdDto.toDomain(idDto);
+    const props = ExampleUpdateDto.toDomain(bodyDto);
+
+    const command = new ExampleUpdateCommand(id, props);
+    const example = await this.commandBus.execute<
+      ExampleUpdateCommand,
       Example
     >(command);
 

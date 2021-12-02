@@ -70,5 +70,34 @@ describe(ExampleUpdateCommandHandler.name, () => {
       expect(updated.name).toBe(testData.name);
       expect(updated.detail).toBe(testData.detail);
     });
+
+    it('Exampleを部分更新できる', async () => {
+      const id = new ExampleId('02790f45-e69f-440a-a03e-f106b5172efc');
+      const example = new Example(id, {
+        email: new EmailAddress('test@example.com'),
+        name: new Name('test'),
+        detail: new Detail('test_detail'),
+      });
+
+      jest.spyOn(repository, 'getById').mockResolvedValue(example);
+      jest
+        .spyOn(repository, 'update')
+        .mockImplementation((v) => Promise.resolve(v));
+
+      const testData = {
+        name: 'updated',
+      };
+      const updateProps: Partial<ExampleProps> = {
+        name: new Name(testData.name),
+      };
+
+      const updated = await updateCommand.execute(
+        new ExampleUpdateCommand(id, updateProps),
+      );
+
+      expect(updated.email).toBe(example.email);
+      expect(updated.name).toBe(testData.name);
+      expect(updated.detail).toBe(example.detail);
+    });
   });
 });

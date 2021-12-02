@@ -41,9 +41,9 @@ export class Example extends AggregateRoot<ExampleId, ExampleProps> {
     example.apply(
       new ExampleUpdated(
         this.id,
-        props.email.value,
-        props.name.value,
-        props.detail.value,
+        props.email?.value,
+        props.name?.value,
+        props.detail?.value,
       ),
     );
     return example;

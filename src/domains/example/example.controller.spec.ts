@@ -3,6 +3,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { ExampleController } from '~/domains/example/example.controller';
 import {
   ExampleCreateCommandHandler,
+  ExampleUpdateCommandHandler,
   ExampleSearchQueryHandler,
   ExampleDetailQueryHandler,
 } from '~/domains/example/usecases/handlers';
@@ -19,6 +20,7 @@ import {
 import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
 import {
   ExampleCreateDto,
+  ExampleUpdateDto,
   ExampleDetailDto,
   ExampleDto,
   ExampleListDto,
@@ -29,6 +31,7 @@ import { EmailAddress } from '~/common/value-objects';
 describe(ExampleController.name, () => {
   let controller: ExampleController;
   let createCommand: ExampleCreateCommandHandler;
+  let updateCommand: ExampleUpdateCommandHandler;
   let searchQuery: ExampleSearchQueryHandler;
   let detailQuery: ExampleDetailQueryHandler;
 
@@ -38,6 +41,7 @@ describe(ExampleController.name, () => {
       controllers: [ExampleController],
       providers: [
         ExampleCreateCommandHandler,
+        ExampleUpdateCommandHandler,
         ExampleSearchQueryHandler,
         ExampleDetailQueryHandler,
         {
@@ -56,6 +60,9 @@ describe(ExampleController.name, () => {
     controller = moduleRef.get<ExampleController>(ExampleController);
     createCommand = moduleRef.get<ExampleCreateCommandHandler>(
       ExampleCreateCommandHandler,
+    );
+    updateCommand = moduleRef.get<ExampleUpdateCommandHandler>(
+      ExampleUpdateCommandHandler,
     );
     searchQuery = moduleRef.get<ExampleSearchQueryHandler>(
       ExampleSearchQueryHandler,
@@ -85,6 +92,25 @@ describe(ExampleController.name, () => {
       const response = ExampleDto.fromDomain(example);
       expect(await controller.post(testDto)).toStrictEqual(response);
       expect(createCommand.execute).toBeCalled();
+    });
+  });
+
+  describe(ExampleController.prototype.patch.name, () => {
+    it('Exampleを更新できる', async () => {
+      const testId = '322f6d29-0ce5-4443-a487-0bf2b0f8462a';
+      const example = new Example(new ExampleId(testId), {
+        email: new EmailAddress('test_email@example.com'),
+        name: new Name('test_name'),
+        detail: new Detail('test_detail'),
+      });
+      jest
+        .spyOn(updateCommand, 'execute')
+        .mockImplementation((_cmd) => Promise.resolve(example));
+
+      const testDto = new ExampleUpdateDto();
+      const response = ExampleDto.fromDomain(example);
+      expect(await controller.patch(testDto)).toStrictEqual(response);
+      expect(updateCommand.execute).toBeCalled();
     });
   });
 
