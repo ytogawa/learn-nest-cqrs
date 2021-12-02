@@ -1,7 +1,7 @@
 import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
 import { ExampleReadRepository } from '~/domains/example/repositories/example.read.repository';
-import { ExamplePrismaRepository } from '~/domains/example/repositories/example.prisma.repository';
+import { ExamplePrismaReadRepository } from '~/domains/example/repositories';
 import { ExampleSearchQueryHandler } from '~/domains/example/usecases/handlers/example.search';
 import { ExampleSearchQuery } from '~/domains/example/usecases/example.srarch.query';
 import { Examples, ExampleSearchConditions } from '~/domains/example/entities';
@@ -16,7 +16,7 @@ describe(ExampleSearchQueryHandler.name, () => {
         ExampleSearchQueryHandler,
         {
           provide: 'ExampleReadRepository',
-          useClass: ExamplePrismaRepository,
+          useClass: ExamplePrismaReadRepository,
         },
       ],
     }).compile();
@@ -26,7 +26,7 @@ describe(ExampleSearchQueryHandler.name, () => {
     );
     repository = moduleRef.get<
       'ExampleReadRepository',
-      ExamplePrismaRepository
+      ExamplePrismaReadRepository
     >('ExampleReadRepository');
   });
 

@@ -1,7 +1,7 @@
 import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
 import { Example, ExampleProps } from '~/domains/example/entities';
-import { ExamplePrismaRepository } from '~/domains/example/repositories/example.prisma.repository';
+import { ExamplePrismaWriteRepository } from '~/domains/example/repositories';
 import { EmailAddress } from '~/common/value-objects';
 import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
 import { ExampleCreateCommandHandler } from './example.create';
@@ -19,7 +19,7 @@ describe(ExampleCreateCommandHandler.name, () => {
         ExampleCreateCommandHandler,
         {
           provide: 'ExampleWriteRepository',
-          useClass: ExamplePrismaRepository,
+          useClass: ExamplePrismaWriteRepository,
         },
       ],
     }).compile();
@@ -29,7 +29,7 @@ describe(ExampleCreateCommandHandler.name, () => {
     );
     repository = moduleRef.get<
       'ExampleWriteRepository',
-      ExampleWriteRepository & jest.Mock
+      ExamplePrismaWriteRepository
     >('ExampleWriteRepository');
   });
   afterEach(() => {

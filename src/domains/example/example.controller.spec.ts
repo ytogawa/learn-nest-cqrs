@@ -5,7 +5,10 @@ import {
   ExampleCreateCommandHandler,
   ExampleSearchQueryHandler,
 } from '~/domains/example/usecases/handlers';
-import { ExamplePrismaRepository } from '~/domains/example/repositories/example.prisma.repository';
+import {
+  ExamplePrismaReadRepository,
+  ExamplePrismaWriteRepository,
+} from '~/domains/example/repositories';
 import {
   Example,
   Examples,
@@ -39,11 +42,11 @@ describe(ExampleController.name, () => {
         ExampleDetailQueryHandler,
         {
           provide: 'ExampleWriteRepository',
-          useClass: ExamplePrismaRepository,
+          useClass: ExamplePrismaWriteRepository,
         },
         {
           provide: 'ExampleReadRepository',
-          useClass: ExamplePrismaRepository,
+          useClass: ExamplePrismaReadRepository,
         },
       ],
     }).compile();

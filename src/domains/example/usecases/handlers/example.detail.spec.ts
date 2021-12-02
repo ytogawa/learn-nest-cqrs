@@ -1,7 +1,7 @@
 import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
 import { ExampleReadRepository } from '~/domains/example/repositories/example.read.repository';
-import { ExamplePrismaRepository } from '~/domains/example/repositories/example.prisma.repository';
+import { ExamplePrismaReadRepository } from '~/domains/example/repositories';
 import { ExampleDetailQueryHandler } from '~/domains/example/usecases/handlers/example.detail';
 import { ExampleDetail } from '~/domains/example/entities';
 import { ExampleDetailQuery } from '~/domains/example/usecases/example.detail.query';
@@ -18,7 +18,7 @@ describe(ExampleDetailQueryHandler.name, () => {
         ExampleDetailQueryHandler,
         {
           provide: 'ExampleReadRepository',
-          useClass: ExamplePrismaRepository,
+          useClass: ExamplePrismaReadRepository,
         },
       ],
     }).compile();
@@ -28,7 +28,7 @@ describe(ExampleDetailQueryHandler.name, () => {
     );
     repository = moduleRef.get<
       'ExampleReadRepository',
-      ExamplePrismaRepository
+      ExamplePrismaReadRepository
     >('ExampleReadRepository');
   });
 

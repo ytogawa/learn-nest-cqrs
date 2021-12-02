@@ -2,7 +2,10 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ExampleController } from '~/domains/example/example.controller';
 import * as Handlers from '~/domains/example/usecases/handlers';
-import { ExamplePrismaRepository } from '~/domains/example/repositories/example.prisma.repository';
+import {
+  ExamplePrismaReadRepository,
+  ExamplePrismaWriteRepository,
+} from '~/domains/example/repositories';
 
 @Module({
   imports: [CqrsModule],
@@ -11,11 +14,11 @@ import { ExamplePrismaRepository } from '~/domains/example/repositories/example.
     ...Object.values(Handlers),
     {
       provide: 'ExampleWriteRepository',
-      useClass: ExamplePrismaRepository,
+      useClass: ExamplePrismaWriteRepository,
     },
     {
       provide: 'ExampleReadRepository',
-      useClass: ExamplePrismaRepository,
+      useClass: ExamplePrismaReadRepository,
     },
   ],
 })
