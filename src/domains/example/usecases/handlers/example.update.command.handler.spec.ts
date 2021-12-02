@@ -4,7 +4,7 @@ import { Example, ExampleProps } from '~/domains/example/entities';
 import { ExamplePrismaWriteRepository } from '~/domains/example/repositories';
 import { EmailAddress } from '~/common/value-objects';
 import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
-import { ExampleUpdateCommandHandler } from './example.update';
+import { ExampleUpdateCommandHandler } from '~/domains/example/usecases/handlers/example.update.command.handler';
 import { ExampleUpdateCommand } from '~/domains/example/usecases/example.update.command';
 import { ExampleWriteRepository } from '~/domains/example/repositories/example.write.repository';
 

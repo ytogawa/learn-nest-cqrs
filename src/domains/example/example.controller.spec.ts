@@ -4,6 +4,7 @@ import { ExampleController } from '~/domains/example/example.controller';
 import {
   ExampleCreateCommandHandler,
   ExampleSearchQueryHandler,
+  ExampleDetailQueryHandler,
 } from '~/domains/example/usecases/handlers';
 import {
   ExamplePrismaReadRepository,
@@ -23,7 +24,6 @@ import {
   ExampleListDto,
   ExampleListQueryDto,
 } from '~/domains/example/interfaces';
-import { ExampleDetailQueryHandler } from '~/domains/example/usecases/handlers/example.detail';
 import { EmailAddress } from '~/common/value-objects';
 
 describe(ExampleController.name, () => {

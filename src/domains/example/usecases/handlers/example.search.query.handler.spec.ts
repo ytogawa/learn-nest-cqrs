@@ -2,7 +2,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
 import { ExampleReadRepository } from '~/domains/example/repositories/example.read.repository';
 import { ExamplePrismaReadRepository } from '~/domains/example/repositories';
-import { ExampleSearchQueryHandler } from '~/domains/example/usecases/handlers/example.search';
+import { ExampleSearchQueryHandler } from '~/domains/example/usecases/handlers/example.search.query.handler';
 import { ExampleSearchQuery } from '~/domains/example/usecases/example.srarch.query';
 import { Examples, ExampleSearchConditions } from '~/domains/example/entities';
 
