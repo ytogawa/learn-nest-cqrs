@@ -1,8 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { EmailAddress } from '~/common/value-objects';
 import { ExampleId, Name, Detail } from '~/domains/example/value-objects';
 import {
-  Example,
   Examples,
   ExamplesItem,
   ExampleSearchConditions,

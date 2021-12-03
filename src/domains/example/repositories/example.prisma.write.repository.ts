@@ -11,9 +11,9 @@ export class ExamplePrismaWriteRepository implements ExampleWriteRepository {
     const saved = await prisma.example.create({
       data: {
         id: item.id,
-        email: item.email,
-        name: item.name,
-        detail: item.detail,
+        email: item.email.value,
+        name: item.name.value,
+        detail: item.detail.value,
       },
     });
     return Example.fromRepository(new ExampleId(saved.id), {
@@ -26,9 +26,9 @@ export class ExamplePrismaWriteRepository implements ExampleWriteRepository {
   async update(item: Example): Promise<Example> {
     const saved = await prisma.example.update({
       data: {
-        email: item.email,
-        name: item.name,
-        detail: item.detail,
+        email: item.email.value,
+        name: item.name.value,
+        detail: item.detail.value,
       },
       where: {
         id: item.id,

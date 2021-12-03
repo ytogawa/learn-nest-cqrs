@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, IsEmail, MaxLength } from 'class-validator';
 import { EmailAddress } from '~/common/value-objects';
-import { ExampleProps } from '~/domains/example/entities';
+import { ExampleState } from '~/domains/example/entities';
 import { Name, Detail } from '~/domains/example/value-objects';
 
 export class ExampleCreateDto {
@@ -17,7 +17,7 @@ export class ExampleCreateDto {
   @MaxLength(Detail.MAX_LENGTH)
   detail: string;
 
-  static toDomain(self: ExampleCreateDto): ExampleProps {
+  static toDomain(self: ExampleCreateDto): ExampleState {
     return {
       email: new EmailAddress(self.email),
       name: new Name(self.name),

@@ -23,6 +23,7 @@ import {
   ExampleUpdateDto,
   ExampleDetailDto,
   ExampleDto,
+  ExampleIdDto,
   ExampleListDto,
   ExampleListQueryDto,
 } from '~/domains/example/interfaces';
@@ -80,7 +81,7 @@ describe(ExampleController.name, () => {
       testDto.name = 'test_name';
       testDto.detail = 'test_detail';
 
-      const example = new Example(new ExampleId(testId), {
+      const example = Example.create(new ExampleId(testId), {
         email: new EmailAddress(testDto.email),
         name: new Name(testDto.name),
         detail: new Detail(testDto.detail),
@@ -98,7 +99,7 @@ describe(ExampleController.name, () => {
   describe(ExampleController.prototype.patch.name, () => {
     it('Exampleを更新できる', async () => {
       const testId = '322f6d29-0ce5-4443-a487-0bf2b0f8462a';
-      const example = new Example(new ExampleId(testId), {
+      const example = Example.create(new ExampleId(testId), {
         email: new EmailAddress('test_email@example.com'),
         name: new Name('test_name'),
         detail: new Detail('test_detail'),
@@ -109,7 +110,9 @@ describe(ExampleController.name, () => {
 
       const testDto = new ExampleUpdateDto();
       const response = ExampleDto.fromDomain(example);
-      expect(await controller.patch(testDto)).toStrictEqual(response);
+      const idDto = new ExampleIdDto();
+      idDto.id = testId;
+      expect(await controller.patch(idDto, testDto)).toStrictEqual(response);
       expect(updateCommand.execute).toBeCalled();
     });
   });

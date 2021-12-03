@@ -60,9 +60,9 @@ export class ExampleController {
 
   @Post()
   async post(@Body() dto: ExampleCreateDto): Promise<ExampleDto> {
-    const props = ExampleCreateDto.toDomain(dto);
+    const state = ExampleCreateDto.toDomain(dto);
 
-    const command = new ExampleCreateCommand(props);
+    const command = new ExampleCreateCommand(state);
     const example = await this.commandBus.execute<
       ExampleCreateCommand,
       Example
@@ -77,9 +77,9 @@ export class ExampleController {
     @Body() bodyDto: ExampleUpdateDto,
   ): Promise<ExampleDto> {
     const id = ExampleIdDto.toDomain(idDto);
-    const props = ExampleUpdateDto.toDomain(bodyDto);
+    const state = ExampleUpdateDto.toDomain(bodyDto);
 
-    const command = new ExampleUpdateCommand(id, props);
+    const command = new ExampleUpdateCommand(id, state);
     const example = await this.commandBus.execute<
       ExampleUpdateCommand,
       Example

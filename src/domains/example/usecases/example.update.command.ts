@@ -1,18 +1,18 @@
-import { ExampleProps } from '~/domains/example/entities';
+import { ExampleState } from '~/domains/example/entities';
 import { ExampleId } from '~/domains/example/value-objects';
 
 export class ExampleUpdateCommand {
-  private readonly _props: Partial<ExampleProps>;
+  private readonly _state: Partial<ExampleState>;
 
-  constructor(private readonly _id: ExampleId, props: Partial<ExampleProps>) {
-    this._props = Object.freeze(props);
+  constructor(private readonly _id: ExampleId, state: Partial<ExampleState>) {
+    this._state = Object.freeze(state);
   }
 
   get id() {
     return this._id;
   }
 
-  get props() {
-    return this._props;
+  get state() {
+    return this._state;
   }
 }

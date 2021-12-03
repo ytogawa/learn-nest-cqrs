@@ -21,9 +21,9 @@ export class ExampleDto {
   static fromDomain(example: Example): ExampleDto {
     return {
       id: example.id,
-      email: example.email,
-      name: example.name,
-      detail: example.detail,
+      email: example.email.value,
+      name: example.name.value,
+      detail: example.detail.value,
     };
   }
 }

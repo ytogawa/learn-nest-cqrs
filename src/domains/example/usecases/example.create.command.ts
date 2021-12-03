@@ -1,13 +1,13 @@
-import { ExampleProps } from '~/domains/example/entities';
+import { ExampleState } from '~/domains/example/entities';
 
 export class ExampleCreateCommand {
-  private readonly _props: ExampleProps;
+  private readonly _state: ExampleState;
 
-  constructor(props: ExampleProps) {
-    this._props = Object.freeze(props);
+  constructor(state: ExampleState) {
+    this._state = Object.freeze(state);
   }
 
-  get props() {
-    return this._props;
+  get state() {
+    return this._state;
   }
 }

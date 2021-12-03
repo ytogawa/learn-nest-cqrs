@@ -8,9 +8,9 @@ describe(ExampleDetailDto.name, () => {
     it('エンティティから生成できる', () => {
       const testData = {
         id: '68e1ad57-e6cd-4b67-ba79-8ecb8ac77e7c',
-        email: 'test1',
-        name: 'test2',
-        detail: 'test3',
+        email: 'test@example.com',
+        name: 'test_name',
+        detail: 'test_detail',
       };
 
       const example = ExampleDetail.fromRepository(new ExampleId(testData.id), {

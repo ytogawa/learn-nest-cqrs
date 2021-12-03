@@ -4,9 +4,9 @@ describe(ExampleUpdateDto.name, () => {
   describe(ExampleUpdateDto.toDomain.name, () => {
     it('ドメイン層のオブジェクトに変換できる', () => {
       const testData = {
-        email: 'test1',
-        name: 'test2',
-        detail: 'test3',
+        email: 'test@example.com',
+        name: 'test_name',
+        detail: 'test_detail',
       };
 
       const dto = new ExampleUpdateDto();
@@ -14,10 +14,10 @@ describe(ExampleUpdateDto.name, () => {
       dto.name = testData.name;
       dto.detail = testData.detail;
 
-      const props = ExampleUpdateDto.toDomain(dto);
-      expect(props.email.value).toBe(testData.email);
-      expect(props.name.value).toBe(testData.name);
-      expect(props.detail.value).toBe(testData.detail);
+      const state = ExampleUpdateDto.toDomain(dto);
+      expect(state.email.value).toBe(testData.email);
+      expect(state.name.value).toBe(testData.name);
+      expect(state.detail.value).toBe(testData.detail);
     });
   });
 });

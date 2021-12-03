@@ -1,6 +1,6 @@
 import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
-import { Example, ExampleProps } from '~/domains/example/entities';
+import { Example, ExampleState } from '~/domains/example/entities';
 import { ExamplePrismaWriteRepository } from '~/domains/example/repositories';
 import { EmailAddress } from '~/common/value-objects';
 import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
@@ -40,7 +40,7 @@ describe(ExampleUpdateCommandHandler.name, () => {
   describe(ExampleUpdateCommandHandler.prototype.execute.name, () => {
     it('Exampleを更新できる', async () => {
       const id = new ExampleId('02790f45-e69f-440a-a03e-f106b5172efc');
-      const example = new Example(id, {
+      const example = Example.create(id, {
         email: new EmailAddress('test@example.com'),
         name: new Name('test'),
         detail: new Detail('test_detail'),
@@ -52,28 +52,28 @@ describe(ExampleUpdateCommandHandler.name, () => {
         .mockImplementation((v) => Promise.resolve(v));
 
       const testData = {
-        email: 'updated@example.com',
-        name: 'updated',
-        detail: 'updated_detail',
+        email: new EmailAddress('updated@example.com'),
+        name: new Name('updated'),
+        detail: new Detail('updated_detail'),
       };
-      const updateProps: ExampleProps = {
-        email: new EmailAddress(testData.email),
-        name: new Name(testData.name),
-        detail: new Detail(testData.detail),
+      const updateState: ExampleState = {
+        email: testData.email,
+        name: testData.name,
+        detail: testData.detail,
       };
 
       const updated = await updateCommand.execute(
-        new ExampleUpdateCommand(id, updateProps),
+        new ExampleUpdateCommand(id, updateState),
       );
 
-      expect(updated.email).toBe(testData.email);
-      expect(updated.name).toBe(testData.name);
-      expect(updated.detail).toBe(testData.detail);
+      expect(updated.email).toStrictEqual(testData.email);
+      expect(updated.name).toStrictEqual(testData.name);
+      expect(updated.detail).toStrictEqual(testData.detail);
     });
 
     it('Exampleを部分更新できる', async () => {
       const id = new ExampleId('02790f45-e69f-440a-a03e-f106b5172efc');
-      const example = new Example(id, {
+      const example = Example.create(id, {
         email: new EmailAddress('test@example.com'),
         name: new Name('test'),
         detail: new Detail('test_detail'),
@@ -85,19 +85,16 @@ describe(ExampleUpdateCommandHandler.name, () => {
         .mockImplementation((v) => Promise.resolve(v));
 
       const testData = {
-        name: 'updated',
-      };
-      const updateProps: Partial<ExampleProps> = {
-        name: new Name(testData.name),
+        name: new Name('updated'),
       };
 
       const updated = await updateCommand.execute(
-        new ExampleUpdateCommand(id, updateProps),
+        new ExampleUpdateCommand(id, testData),
       );
 
-      expect(updated.email).toBe(example.email);
-      expect(updated.name).toBe(testData.name);
-      expect(updated.detail).toBe(example.detail);
+      expect(updated.email).toStrictEqual(example.email);
+      expect(updated.name).toStrictEqual(testData.name);
+      expect(updated.detail).toStrictEqual(example.detail);
     });
   });
 });

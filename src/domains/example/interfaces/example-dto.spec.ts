@@ -8,12 +8,12 @@ describe(ExampleDto.name, () => {
     it('エンティティから生成できる', () => {
       const testData = {
         id: '256f004a-7c78-426a-aab9-7bd8715e1eaf',
-        email: 'test1',
-        name: 'test2',
-        detail: 'test3',
+        email: 'test@example.com',
+        name: 'test_name',
+        detail: 'test_detail',
       };
 
-      const example = new Example(new ExampleId(testData.id), {
+      const example = Example.create(new ExampleId(testData.id), {
         email: new EmailAddress(testData.email),
         name: new Name(testData.name),
         detail: new Detail(testData.detail),

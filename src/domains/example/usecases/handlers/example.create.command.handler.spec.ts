@@ -1,12 +1,15 @@
 import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
-import { Example, ExampleProps } from '~/domains/example/entities';
+import { Example, ExampleState } from '~/domains/example/entities';
 import { ExamplePrismaWriteRepository } from '~/domains/example/repositories';
 import { EmailAddress } from '~/common/value-objects';
 import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
 import { ExampleCreateCommandHandler } from '~/domains/example/usecases/handlers/example.create.command.handler';
 import { ExampleCreateCommand } from '~/domains/example/usecases/example.create.command';
 import { ExampleWriteRepository } from '~/domains/example/repositories/example.write.repository';
+import { generateUuid } from '~/utils/generate-uuid';
+
+jest.mock('~/utils/generate-uuid');
 
 describe(ExampleCreateCommandHandler.name, () => {
   let createCommand: ExampleCreateCommandHandler;
@@ -43,19 +46,25 @@ describe(ExampleCreateCommandHandler.name, () => {
         name: 'test',
         detail: 'test_detail',
       };
-      const props: ExampleProps = {
+      const state: ExampleState = {
         email: new EmailAddress(testData.email),
         name: new Name(testData.name),
         detail: new Detail(testData.detail),
       };
-      const example = Example.fromRepository(new ExampleId(testData.id), props);
+      const example = Example.fromRepository(new ExampleId(testData.id), state);
       jest.spyOn(repository, 'create').mockResolvedValue(example);
 
+      if (!jest.isMockFunction(generateUuid)) {
+        throw new Error('generateUuid is not mock.');
+      }
+
+      generateUuid.mockReturnValue(testData.id);
+
       const result = await createCommand.execute(
-        new ExampleCreateCommand(props),
+        new ExampleCreateCommand(state),
       );
 
-      expect(result).toBe(example);
+      expect(result).toStrictEqual(example);
     });
   });
 });

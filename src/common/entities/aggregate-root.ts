@@ -6,22 +6,28 @@ import { ValueObject } from '../value-objects';
 
 export abstract class AggregateRoot<
   IdType extends ValueObject<unknown, string>,
-  ValueType,
+  StateType,
   EventBase extends DomainEvent<IdType> = DomainEvent<IdType>,
-> extends Entity<IdType, Partial<ValueType>> {
-  private readonly _events: EventBase[] = [];
+> extends Entity<IdType, StateType> {
+  private readonly _changes: EventBase[] = [];
 
-  constructor(id: IdType, props?: Partial<ValueType> | undefined) {
-    super(id, props ?? {});
+  applyChange(event: EventBase): void {
+    this.applyImpl(event);
+    this._changes.push(event);
   }
 
-  apply(event: EventBase): void {
+  loadsFromHistory(histories: EventBase[]) {
+    for (const history of histories) {
+      this.applyImpl(history);
+    }
+  }
+
+  private applyImpl(event: EventBase) {
     this.checkCanApply(event);
-    this.handle(event);
-    this._events.push(event);
+    this.apply(event);
   }
 
-  protected abstract handle(event: EventBase): void;
+  protected abstract apply(event: EventBase): void;
 
   private checkCanApply(event: EventBase): void {
     if (this.id !== event.aggregateId) {
@@ -31,11 +37,11 @@ export abstract class AggregateRoot<
   }
 
   reset(): void {
-    this._events.length = 0;
+    this._changes.length = 0;
   }
 
   commit(bus: EventBus): void {
-    bus.publishAll(this._events);
+    bus.publishAll(this._changes);
     this.reset();
   }
 }

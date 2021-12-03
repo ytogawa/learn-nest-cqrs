@@ -1,6 +1,6 @@
 import { IsString, IsEmail, MaxLength, IsOptional } from 'class-validator';
 import { EmailAddress } from '~/common/value-objects';
-import { ExampleProps } from '~/domains/example/entities';
+import { ExampleState } from '~/domains/example/entities';
 import { Name, Detail } from '~/domains/example/value-objects';
 
 export class ExampleUpdateDto {
@@ -17,7 +17,7 @@ export class ExampleUpdateDto {
   @MaxLength(Detail.MAX_LENGTH)
   detail?: string;
 
-  static toDomain(self: ExampleUpdateDto): Partial<ExampleProps> {
+  static toDomain(self: ExampleUpdateDto): Partial<ExampleState> {
     return {
       email: self.email && new EmailAddress(self.email),
       name: self.name && new Name(self.name),

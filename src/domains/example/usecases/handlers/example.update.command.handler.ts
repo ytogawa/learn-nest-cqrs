@@ -16,7 +16,7 @@ export class ExampleUpdateCommandHandler
 
   async execute(command: ExampleUpdateCommand): Promise<Example> {
     const example = await this.repository.getById(command.id);
-    const updated = example.withUpdate(command.props);
+    const updated = example.withUpdate(command.state);
     const result = await this.repository.update(updated);
     updated.commit(this.eventBus);
     return result;
