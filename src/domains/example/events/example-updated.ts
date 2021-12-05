@@ -1,13 +1,28 @@
 import { DomainEvent } from '~/common/entities';
-import { ExampleId } from '..';
+import { EmailAddress } from '~/common/value-objects';
+import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
 
-export class ExampleUpdated extends DomainEvent<ExampleId> {
+export class ExampleUpdatedPayload {
   constructor(
-    aggregateId: string,
-    public readonly email?: string,
-    public readonly name?: string,
-    public readonly detail?: string,
-  ) {
-    super(aggregateId);
+    private _email?: EmailAddress,
+    private _name?: Name,
+    private _detail?: Detail,
+  ) {}
+
+  get email() {
+    return this._email;
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  get detail() {
+    return this._detail;
   }
 }
+
+export class ExampleUpdated extends DomainEvent<
+  ExampleId,
+  ExampleUpdatedPayload
+> {}

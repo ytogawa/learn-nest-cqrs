@@ -1,14 +1,26 @@
 import { AggregateRoot, DomainEvent } from '~/common/entities';
 import { ExampleState } from '~/domains/example/entities/example-state';
 import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
-import { ExampleCreated, ExampleUpdated } from '~/domains/example/events';
+import {
+  ExampleCreated,
+  ExampleUpdated,
+  ExampleCreatedPayload,
+  ExampleUpdatedPayload,
+} from '~/domains/example/events';
 import { clone } from '~/utils';
 import { DomainException } from '~/common/errors';
 import { EmailAddress } from '~/common/value-objects';
 
-export class Example extends AggregateRoot<ExampleId, ExampleState> {
-  private constructor(id: ExampleId, state?: ExampleState | undefined) {
-    super(id, state ?? new ExampleState());
+export class Example extends AggregateRoot<ExampleId> {
+  private constructor(
+    id: ExampleId,
+    private state: ExampleState = {
+      email: new EmailAddress(),
+      name: new Name(),
+      detail: new Detail(),
+    },
+  ) {
+    super(id);
   }
 
   static create(id: ExampleId, state: ExampleState): Example {
@@ -37,9 +49,7 @@ export class Example extends AggregateRoot<ExampleId, ExampleState> {
     example.applyChange(
       new ExampleCreated(
         example.id,
-        state.email.value,
-        state.name.value,
-        state.detail.value,
+        new ExampleCreatedPayload(state.email, state.name, state.detail),
       ),
     );
     return example;
@@ -50,15 +60,13 @@ export class Example extends AggregateRoot<ExampleId, ExampleState> {
     example.applyChange(
       new ExampleUpdated(
         this.id,
-        state.email?.value,
-        state.name?.value,
-        state.detail?.value,
+        new ExampleUpdatedPayload(state.email, state.name, state.detail),
       ),
     );
     return example;
   }
 
-  protected apply(event: DomainEvent<ExampleId>) {
+  protected apply(event: DomainEvent<ExampleId, unknown>) {
     if (event instanceof ExampleCreated) {
       return this.handleCreated(event);
     } else if (event instanceof ExampleUpdated) {
@@ -68,20 +76,20 @@ export class Example extends AggregateRoot<ExampleId, ExampleState> {
   }
 
   private handleCreated(event: ExampleCreated) {
-    this.state.email = new EmailAddress(event.email);
-    this.state.name = new Name(event.name);
-    this.state.detail = new Detail(event.detail);
+    this.state.email = event.payload.email;
+    this.state.name = event.payload.name;
+    this.state.detail = event.payload.detail;
   }
 
   private handleUpdated(event: ExampleUpdated) {
-    if (event.email) {
-      this.state.email = new EmailAddress(event.email);
+    if (event.payload.email) {
+      this.state.email = event.payload.email;
     }
-    if (event.name) {
-      this.state.name = new Name(event.name);
+    if (event.payload.name) {
+      this.state.name = event.payload.name;
     }
-    if (event.detail) {
-      this.state.detail = new Detail(event.detail);
+    if (event.payload.detail) {
+      this.state.detail = event.payload.detail;
     }
   }
 }

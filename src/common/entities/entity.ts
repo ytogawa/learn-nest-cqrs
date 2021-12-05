@@ -1,29 +1,13 @@
-import { ValueObject, GetValueType } from '~/common/value-objects';
-import { clone } from '~/utils';
+import { ValueObject } from '~/common/value-objects';
 
-interface EntityConstructor<IdType, StateType, T> {
-  new (id: IdType, state: StateType): T;
-}
+export abstract class Entity<IdType extends ValueObject<unknown, string>> {
+  protected constructor(private readonly _id: IdType) {}
 
-export abstract class Entity<
-  IdType extends ValueObject<unknown, string>,
-  StateType,
-> {
-  private readonly _state: StateType;
-
-  protected constructor(private readonly _id: IdType, state: StateType) {
-    this._state = { ...state };
+  get id(): IdType {
+    return this._id;
   }
 
-  get id(): GetValueType<IdType> {
-    return this._id.value as GetValueType<IdType>;
-  }
-
-  protected get state() {
-    return this._state;
-  }
-
-  equals(obj: Entity<IdType, StateType>) {
+  equals(obj: Entity<IdType>) {
     return this._id.equals(obj._id);
   }
 }

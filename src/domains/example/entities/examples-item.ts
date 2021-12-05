@@ -5,7 +5,7 @@ import { EmailAddress } from '~/common/value-objects';
 
 type ExmaplesState = Omit<ExampleState, 'detail'>;
 
-export class ExamplesItem extends Entity<ExampleId, ExmaplesState> {
+export class ExamplesItem extends Entity<ExampleId> {
   static fromRepository(
     id: ExampleId,
     email: EmailAddress,
@@ -15,11 +15,15 @@ export class ExamplesItem extends Entity<ExampleId, ExmaplesState> {
     return new ExamplesItem(id, value);
   }
 
-  get email(): string {
-    return this.state.email.value;
+  constructor(id: ExampleId, private state: ExmaplesState) {
+    super(id);
   }
 
-  get name(): string {
-    return this.state.name.value;
+  get email(): EmailAddress {
+    return this.state.email;
+  }
+
+  get name(): Name {
+    return this.state.name;
   }
 }

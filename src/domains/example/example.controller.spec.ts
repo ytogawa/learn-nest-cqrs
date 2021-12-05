@@ -172,7 +172,7 @@ describe(ExampleController.name, () => {
         .mockImplementation((_query) => Promise.resolve(detail));
 
       const request = new ExampleDetailDto();
-      request.id = detail.id;
+      request.id = detail.id.value;
 
       const response = await controller.get(request);
       expect(response).toBeDefined();

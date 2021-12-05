@@ -1,21 +1,25 @@
 import { Entity } from '~/common/entities';
+import { EmailAddress } from '~/common/value-objects';
 import { ExampleState } from '~/domains/example/entities/example-state';
-import { ExampleId } from '~/domains/example/value-objects';
+import { ExampleId, Name, Detail } from '~/domains/example/value-objects';
 
-export class ExampleDetail extends Entity<ExampleId, ExampleState> {
+export class ExampleDetail extends Entity<ExampleId> {
+  constructor(id: ExampleId, private state: ExampleState) {
+    super(id);
+  }
   static fromRepository(id: ExampleId, state: ExampleState): ExampleDetail {
     return new ExampleDetail(id, state);
   }
 
-  get email(): string {
-    return this.state.email.value;
+  get email(): EmailAddress {
+    return this.state.email;
   }
 
-  get name(): string {
-    return this.state.name.value;
+  get name(): Name {
+    return this.state.name;
   }
 
-  get detail(): string {
-    return this.state.detail.value;
+  get detail(): Detail {
+    return this.state.detail;
   }
 }

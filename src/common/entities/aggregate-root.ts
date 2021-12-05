@@ -2,13 +2,12 @@ import { EventBus } from '@nestjs/cqrs';
 import { Entity } from './entity';
 import { DomainEvent } from './domain-event';
 import { DomainException } from '~/common/errors';
-import { ValueObject } from '../value-objects';
+import { ValueObject } from '~/common/value-objects';
 
 export abstract class AggregateRoot<
   IdType extends ValueObject<unknown, string>,
-  StateType,
-  EventBase extends DomainEvent<IdType> = DomainEvent<IdType>,
-> extends Entity<IdType, StateType> {
+  EventBase extends DomainEvent<IdType, unknown> = DomainEvent<IdType, unknown>,
+> extends Entity<IdType> {
   private readonly _changes: EventBase[] = [];
 
   applyChange(event: EventBase): void {
@@ -30,7 +29,7 @@ export abstract class AggregateRoot<
   protected abstract apply(event: EventBase): void;
 
   private checkCanApply(event: EventBase): void {
-    if (this.id !== event.aggregateId) {
+    if (!this.id.equals(event.aggregateId)) {
       throw new DomainException('Applying event to different entities.');
     }
     return;

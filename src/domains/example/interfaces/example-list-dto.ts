@@ -19,9 +19,9 @@ export class ExampleListDto extends Array<ExampleListItemDto> {
   static fromDomain(examples: Examples): ExampleListDto {
     return examples.map((example) => {
       return {
-        id: example.id,
-        email: example.email,
-        name: example.name,
+        id: example.id.value,
+        email: example.email.value,
+        name: example.name.value,
       };
     });
   }

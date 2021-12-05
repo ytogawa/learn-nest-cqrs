@@ -6,15 +6,15 @@ describe(ExampleDetail.name, () => {
   describe(ExampleDetail.fromRepository.name, () => {
     it('インスタンスが生成できる', () => {
       const testData = {
-        id: '064f288a-9e37-480c-9b47-7f3a84cf0af1',
-        email: 'test_email@example.com',
-        name: 'test_name',
-        detail: 'test_detail',
+        id: new ExampleId('064f288a-9e37-480c-9b47-7f3a84cf0af1'),
+        email: new EmailAddress('test_email@example.com'),
+        name: new Name('test_name'),
+        detail: new Detail('test_detail'),
       };
-      const example = ExampleDetail.fromRepository(new ExampleId(testData.id), {
-        email: new EmailAddress(testData.email),
-        name: new Name(testData.name),
-        detail: new Detail(testData.detail),
+      const example = ExampleDetail.fromRepository(testData.id, {
+        email: testData.email,
+        name: testData.name,
+        detail: testData.detail,
       });
       expect(example).toBeDefined();
       expect(example.email).toBe(testData.email);

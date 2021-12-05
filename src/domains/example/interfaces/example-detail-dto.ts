@@ -20,10 +20,10 @@ export class ExampleDetailDto {
 
   static fromDomain(example: ExampleDetail): ExampleDetailDto {
     return {
-      id: example.id,
-      email: example.email,
-      name: example.name,
-      detail: example.detail,
+      id: example.id.value,
+      email: example.email.value,
+      name: example.name.value,
+      detail: example.detail.value,
     };
   }
 }
