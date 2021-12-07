@@ -17,8 +17,37 @@ services:
     tty: true
     command: sh entry.sh
     depends_on:
+      eventstore:
+        condition: service_healthy
       database:
         condition: service_healthy
+  eventstore:
+    image: quay.io/coreos/etcd:v3.5.1
+    container_name: learn-nest-cqrs-eventstore
+    ports:
+      - 4001:4001
+      - 2380:2380
+      - 2379:2379
+    environment:
+     - ETCD_NAME=etcd0
+     - ETCD_ADVERTISE_CLIENT_URLS=http://host.docker.internal:2379,http://host.docker.internal:4001
+     - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379,http://0.0.0.0:4001
+     - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://host.docker.internal:2380
+     - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
+     - ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster-1
+     - ETCD_INITIAL_CLUSTER=etcd0=http://host.docker.internal:2380
+     - ETCD_INITIAL_CLUSTER_STATE=new
+     - ETCD_DATA_DIR=/etcd-data
+    restart: always
+    volumes:
+      - type: volume
+        source: event-store
+        target: /etcd-data
+    healthcheck:
+      test: etcdctl endpoint health
+      interval: 3s
+      timeout: 5s
+      retries: 5
   database:
     image: postgres:13.4-alpine3.14
     container_name: learn-nest-cqrs-database
@@ -49,3 +78,4 @@ services:
 volumes:
   db-data:
   node-modules:
+  event-store:
