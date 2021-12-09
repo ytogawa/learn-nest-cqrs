@@ -14,7 +14,7 @@ export class EventEtcdRepository implements EventRepository {
   ): Promise<void> {
     for (const event of events) {
       await this.etcd
-        .put(`${entityType}:${event.aggregateId}:${event.id}`)
+        .put(`${entityType}:${event.aggregateId.value}:${event.id.value}`)
         .value(JSON.stringify(event))
         .exec();
     }
