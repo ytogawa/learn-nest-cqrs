@@ -6,7 +6,6 @@ import {
   Query,
   Param,
   Patch,
-  Logger,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {

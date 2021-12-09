@@ -1,57 +1,51 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { EmailAddress } from '~/common/value-objects';
-import { ExampleId, Name, Detail } from '~/domains/example/value-objects';
+import { Inject, Injectable } from '@nestjs/common';
+import { ExampleId } from '~/domains/example/value-objects';
 import { Example } from '~/domains/example/entities';
 import { ExampleWriteRepository } from '~/domains/example/repositories/example.write.repository';
 import { prisma } from '~/utils/prisma';
+import { EventRepository } from '~/common/repositories';
+import { ExampleCreated, ExampleUpdated } from '..';
 
+const EVENT_PREFIX = 'Example';
 @Injectable()
 export class ExamplePrismaWriteRepository implements ExampleWriteRepository {
-  async create(item: Example): Promise<Example> {
-    const saved = await prisma.example.create({
+  constructor(
+    @Inject('EventRepository')
+    private eventRepository: EventRepository,
+  ) {}
+
+  async save(item: Example): Promise<void> {
+    return this.eventRepository.store(EVENT_PREFIX, item.changes);
+  }
+
+  async create(item: ExampleCreated): Promise<void> {
+    await prisma.example.create({
       data: {
-        id: item.id.value,
-        email: item.email.value,
-        name: item.name.value,
-        detail: item.detail.value,
+        id: item.aggregateId.value,
+        email: item.payload.email.value,
+        name: item.payload.name.value,
+        detail: item.payload.detail.value,
       },
-    });
-    return Example.fromRepository(new ExampleId(saved.id), {
-      email: new EmailAddress(saved.email),
-      name: new Name(saved.name),
-      detail: new Detail(saved.detail),
     });
   }
 
-  async update(item: Example): Promise<Example> {
-    const saved = await prisma.example.update({
+  async update(item: ExampleUpdated): Promise<void> {
+    await prisma.example.update({
       data: {
-        email: item.email.value,
-        name: item.name.value,
-        detail: item.detail.value,
+        email: item.payload.email?.value,
+        name: item.payload.name?.value,
+        detail: item.payload.detail?.value,
       },
       where: {
-        id: item.id.value,
+        id: item.aggregateId.value,
       },
-    });
-    return Example.fromRepository(new ExampleId(saved.id), {
-      email: new EmailAddress(saved.email),
-      name: new Name(saved.name),
-      detail: new Detail(saved.detail),
     });
   }
 
   async getById(id: ExampleId): Promise<Example> {
-    const found = await prisma.example.findUnique({
-      where: { id: id.value },
-      rejectOnNotFound: () =>
-        new NotFoundException(`example not found. id=${id.value}`),
-    });
-    const example = Example.fromRepository(new ExampleId(found.id), {
-      email: new EmailAddress(found.email),
-      name: new Name(found.name),
-      detail: new Detail(found.detail),
-    });
+    const events = await this.eventRepository.load(EVENT_PREFIX, id);
+    const example = Example.fromRepository(id);
+    example.loadsFromHistory(events);
     return example;
   }
 }

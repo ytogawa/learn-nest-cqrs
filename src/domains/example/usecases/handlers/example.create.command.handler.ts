@@ -17,7 +17,7 @@ export class ExampleCreateCommandHandler
 
   async execute(command: ExampleCreateCommand): Promise<Example> {
     const created = Example.create(new ExampleId(), command.state);
-    await this.repository.create(created);
+    await this.repository.save(created);
     created.commit(this.eventBus);
     return created;
   }

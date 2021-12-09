@@ -46,6 +46,10 @@ describe(ExampleController.name, () => {
         ExampleSearchQueryHandler,
         ExampleDetailQueryHandler,
         {
+          provide: 'EventRepository',
+          useValue: { stroe: jest.fn() },
+        },
+        {
           provide: 'ExampleWriteRepository',
           useClass: ExamplePrismaWriteRepository,
         },

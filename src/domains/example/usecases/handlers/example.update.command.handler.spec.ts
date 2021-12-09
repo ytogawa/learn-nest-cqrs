@@ -21,6 +21,10 @@ describe(ExampleUpdateCommandHandler.name, () => {
           provide: 'ExampleWriteRepository',
           useClass: ExamplePrismaWriteRepository,
         },
+        {
+          provide: 'EventRepository',
+          useValue: { store: jest.fn() },
+        },
       ],
     }).compile();
     await moduleRef.init();
@@ -45,11 +49,10 @@ describe(ExampleUpdateCommandHandler.name, () => {
         name: new Name('test'),
         detail: new Detail('test_detail'),
       });
+      example.reset();
 
       jest.spyOn(repository, 'getById').mockResolvedValue(example);
-      jest
-        .spyOn(repository, 'update')
-        .mockImplementation((v) => Promise.resolve(v));
+      jest.spyOn(repository, 'update').mockResolvedValue();
 
       const testData = {
         email: new EmailAddress('updated@example.com'),
@@ -80,9 +83,7 @@ describe(ExampleUpdateCommandHandler.name, () => {
       });
 
       jest.spyOn(repository, 'getById').mockResolvedValue(example);
-      jest
-        .spyOn(repository, 'update')
-        .mockImplementation((v) => Promise.resolve(v));
+      jest.spyOn(repository, 'update').mockResolvedValue();
 
       const testData = {
         name: new Name('updated'),

@@ -24,6 +24,10 @@ describe(ExampleCreateCommandHandler.name, () => {
           provide: 'ExampleWriteRepository',
           useClass: ExamplePrismaWriteRepository,
         },
+        {
+          provide: 'EventRepository',
+          useValue: { store: jest.fn() },
+        },
       ],
     }).compile();
     await moduleRef.init();
@@ -52,7 +56,7 @@ describe(ExampleCreateCommandHandler.name, () => {
         detail: new Detail(testData.detail),
       };
       const example = Example.fromRepository(new ExampleId(testData.id), state);
-      jest.spyOn(repository, 'create').mockResolvedValue(example);
+      jest.spyOn(repository, 'create').mockResolvedValue(Promise.resolve());
 
       if (!jest.isMockFunction(generateUuid)) {
         throw new Error('generateUuid is not mock.');

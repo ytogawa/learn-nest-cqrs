@@ -8,14 +8,14 @@ export abstract class AggregateRoot<
   IdType extends ValueObject<unknown, string>,
   EventBase extends DomainEvent<IdType, unknown> = DomainEvent<IdType, unknown>,
 > extends Entity<IdType> {
-  private readonly _changes: EventBase[] = [];
+  readonly changes: EventBase[] = [];
 
   applyChange(event: EventBase): void {
     this.applyImpl(event);
-    this._changes.push(event);
+    this.changes.push(event);
   }
 
-  loadsFromHistory(histories: EventBase[]) {
+  loadsFromHistory(histories: EventBase[]): void {
     for (const history of histories) {
       this.applyImpl(history);
     }
@@ -36,11 +36,11 @@ export abstract class AggregateRoot<
   }
 
   reset(): void {
-    this._changes.length = 0;
+    this.changes.length = 0;
   }
 
   commit(bus: EventBus): void {
-    bus.publishAll(this._changes);
+    bus.publishAll(this.changes);
     this.reset();
   }
 }

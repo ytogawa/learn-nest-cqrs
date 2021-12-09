@@ -1,16 +1,15 @@
-export class ExampleSearchConditions {
-  private constructor(
-    private readonly _email?: string,
-    private readonly _name?: string,
-  ) {}
+import { ExampleState } from '.';
 
-  get email() {
-    return this._email;
-  }
+type Stringer<T> = {
+  [P in keyof T]: string;
+};
 
-  get name() {
-    return this._name;
-  }
+type ExampleSearchConditionState = Readonly<
+  Partial<Stringer<Omit<ExampleState, 'detail'>>>
+>;
+
+export class ExampleSearchConditions implements ExampleSearchConditionState {
+  private constructor(readonly email?: string, readonly name?: string) {}
 
   static fromQuery(email?: string, name?: string): ExampleSearchConditions {
     return new ExampleSearchConditions(email, name);

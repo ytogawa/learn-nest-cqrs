@@ -1,35 +1,30 @@
 import { AggregateRoot, DomainEvent } from '~/common/entities';
 import { ExampleState } from '~/domains/example/entities/example-state';
 import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
-import {
-  ExampleCreated,
-  ExampleUpdated,
-  ExampleCreatedPayload,
-  ExampleUpdatedPayload,
-} from '~/domains/example/events';
+import { ExampleCreated, ExampleUpdated } from '~/domains/example/events';
 import { clone } from '~/utils';
 import { DomainException } from '~/common/errors';
 import { EmailAddress } from '~/common/value-objects';
 
-export class Example extends AggregateRoot<ExampleId> {
+export class Example extends AggregateRoot<ExampleId> implements ExampleState {
+  static create(id: ExampleId, state: ExampleState): Example {
+    const example = new Example(id);
+    return example.withCreate(state);
+  }
+
+  static fromRepository(id: ExampleId, state?: ExampleState): Example {
+    return new Example(id, state);
+  }
+
   private constructor(
     id: ExampleId,
-    private state: ExampleState = {
+    private readonly state: ExampleState = {
       email: new EmailAddress(),
       name: new Name(),
       detail: new Detail(),
     },
   ) {
     super(id);
-  }
-
-  static create(id: ExampleId, state: ExampleState): Example {
-    const example = new Example(id);
-    return example.withCreate(state);
-  }
-
-  static fromRepository(id: ExampleId, state: ExampleState): Example {
-    return new Example(id, state);
   }
 
   get email(): EmailAddress {
@@ -47,10 +42,11 @@ export class Example extends AggregateRoot<ExampleId> {
   private withCreate(state: ExampleState): Example {
     const example = clone(this);
     example.applyChange(
-      new ExampleCreated(
-        example.id,
-        new ExampleCreatedPayload(state.email, state.name, state.detail),
-      ),
+      new ExampleCreated(example.id, {
+        email: state.email,
+        name: state.name,
+        detail: state.detail,
+      }),
     );
     return example;
   }
@@ -58,21 +54,26 @@ export class Example extends AggregateRoot<ExampleId> {
   withUpdate(state: Partial<ExampleState>): Example {
     const example = clone(this);
     example.applyChange(
-      new ExampleUpdated(
-        this.id,
-        new ExampleUpdatedPayload(state.email, state.name, state.detail),
-      ),
+      new ExampleUpdated(this.id, {
+        email: state.email,
+        name: state.name,
+        detail: state.detail,
+      }),
     );
     return example;
   }
 
   protected apply(event: DomainEvent<ExampleId, unknown>) {
-    if (event instanceof ExampleCreated) {
-      return this.handleCreated(event);
-    } else if (event instanceof ExampleUpdated) {
-      return this.handleUpdated(event);
+    switch (event.eventType) {
+      case ExampleCreated.name: {
+        return this.handleCreated(event as ExampleCreated);
+      }
+      case ExampleUpdated.name: {
+        return this.handleUpdated(event as ExampleUpdated);
+      }
+      default:
+        throw new DomainException(`Unknown event.`);
     }
-    throw new DomainException(`Unknown event.`);
   }
 
   private handleCreated(event: ExampleCreated) {
