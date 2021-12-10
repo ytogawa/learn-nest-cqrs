@@ -1,7 +1,8 @@
 import { Inject } from '@nestjs/common';
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
-import { ExampleCreated } from '../example-created';
+
 import { ExampleWriteRepository } from '../..';
+import { ExampleCreated } from '../example-created';
 
 @EventsHandler(ExampleCreated)
 export class ExampleCreatedHandler implements IEventHandler<ExampleCreated> {

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
-import { ExternalModule } from '~/externals';
+
 import { EventEtcdRepository } from './repositories';
+import { ExternalModule } from '~/externals';
 
 @Module({
   imports: [ExternalModule],

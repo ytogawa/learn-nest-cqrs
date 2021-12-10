@@ -1,12 +1,13 @@
 import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
+
+import { EmailAddress } from '~/common/value-objects';
 import { Example, ExampleState } from '~/domains/example/entities';
 import { ExamplePrismaWriteRepository } from '~/domains/example/repositories';
-import { EmailAddress } from '~/common/value-objects';
-import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
-import { ExampleCreateCommandHandler } from '~/domains/example/usecases/handlers/example.create.command.handler';
-import { ExampleCreateCommand } from '~/domains/example/usecases/example.create.command';
 import { ExampleWriteRepository } from '~/domains/example/repositories/example.write.repository';
+import { ExampleCreateCommand } from '~/domains/example/usecases/example.create.command';
+import { ExampleCreateCommandHandler } from '~/domains/example/usecases/handlers/example.create.command.handler';
+import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
 import { generateUuid } from '~/utils/generate-uuid';
 
 jest.mock('~/utils/generate-uuid');

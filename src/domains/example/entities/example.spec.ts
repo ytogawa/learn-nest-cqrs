@@ -1,6 +1,6 @@
 import { Example } from './example';
-import { ExampleId, Name, Detail } from '~/domains/example/value-objects';
 import { EmailAddress } from '~/common/value-objects';
+import { ExampleId, Name, Detail } from '~/domains/example/value-objects';
 
 describe(Example.name, () => {
   describe(Example.create.name, () => {

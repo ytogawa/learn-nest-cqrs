@@ -8,11 +8,7 @@ import {
   Patch,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import {
-  ExampleCreateCommand,
-  ExampleUpdateCommand,
-  ExampleSearchQuery,
-} from '~/domains/example/usecases';
+
 import { Example, ExampleDetail, Examples } from '~/domains/example/entities';
 import {
   ExampleDto,
@@ -23,6 +19,11 @@ import {
   ExampleListQueryDto,
   ExampleListDto,
 } from '~/domains/example/interfaces';
+import {
+  ExampleCreateCommand,
+  ExampleUpdateCommand,
+  ExampleSearchQuery,
+} from '~/domains/example/usecases';
 import { ExampleDetailQuery } from '~/domains/example/usecases/example.detail.query';
 
 @Controller('examples')

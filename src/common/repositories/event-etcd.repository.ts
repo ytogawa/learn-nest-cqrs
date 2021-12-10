@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { EtcdService } from '~/externals/etcd.service';
+
 import { DomainEvent } from '../entities';
 import { ValueObject } from '../value-objects';
 import { EventRepository } from './event.repository';
+import { EtcdService } from '~/externals/etcd.service';
 
 @Injectable()
 export class EventEtcdRepository implements EventRepository {

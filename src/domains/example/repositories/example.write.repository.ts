@@ -1,6 +1,6 @@
 import { Example } from '~/domains/example/entities';
+import { ExampleCreated, ExampleUpdated } from '~/domains/example/events';
 import { ExampleId } from '~/domains/example/value-objects';
-import { ExampleCreated, ExampleUpdated } from '..';
 
 export interface ExampleWriteRepository {
   save(item: Example): Promise<void>;

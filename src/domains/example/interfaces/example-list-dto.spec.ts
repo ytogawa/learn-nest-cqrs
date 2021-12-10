@@ -1,8 +1,8 @@
-import { Examples } from '~/domains/example/entities/examples';
-import { ExamplesItem } from '~/domains/example/entities';
-import { ExampleId, Name } from '~/domains/example/value-objects';
-import { ExampleListDto } from '~/domains/example/interfaces/example-list-dto';
 import { EmailAddress } from '~/common/value-objects';
+import { ExamplesItem } from '~/domains/example/entities';
+import { Examples } from '~/domains/example/entities/examples';
+import { ExampleListDto } from '~/domains/example/interfaces/example-list-dto';
+import { ExampleId, Name } from '~/domains/example/value-objects';
 
 describe(ExampleListDto.name, () => {
   describe(ExampleListDto.fromDomain.name, () => {

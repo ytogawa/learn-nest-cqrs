@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsString, IsEmail, IsUUID } from 'class-validator';
+
 import { Examples } from '~/domains/example/entities/examples';
 
 export class ExampleListItemDto {

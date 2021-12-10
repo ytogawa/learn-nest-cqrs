@@ -1,7 +1,8 @@
 import { Inject } from '@nestjs/common';
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { ExampleWriteRepository } from '~/domains/example/repositories/example.write.repository';
+
 import { Example } from '~/domains/example/entities';
+import { ExampleWriteRepository } from '~/domains/example/repositories/example.write.repository';
 import { ExampleCreateCommand } from '~/domains/example/usecases/example.create.command';
 import { ExampleId } from '~/domains/example/value-objects';
 

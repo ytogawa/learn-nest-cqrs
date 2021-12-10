@@ -1,10 +1,10 @@
 import { AggregateRoot, DomainEvent } from '~/common/entities';
-import { ExampleState } from '~/domains/example/entities/example-state';
-import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
-import { ExampleCreated, ExampleUpdated } from '~/domains/example/events';
-import { clone } from '~/utils';
 import { DomainException } from '~/common/errors';
 import { EmailAddress } from '~/common/value-objects';
+import { ExampleState } from '~/domains/example/entities/example-state';
+import { ExampleCreated, ExampleUpdated } from '~/domains/example/events';
+import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
+import { clone } from '~/utils';
 
 export class Example extends AggregateRoot<ExampleId> implements ExampleState {
   static create(id: ExampleId, state: ExampleState): Example {

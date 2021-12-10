@@ -1,10 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ExampleId } from '~/domains/example/value-objects';
+
+import { ExampleCreated, ExampleUpdated } from '..';
+import { EventRepository } from '~/common/repositories';
 import { Example } from '~/domains/example/entities';
 import { ExampleWriteRepository } from '~/domains/example/repositories/example.write.repository';
+import { ExampleId } from '~/domains/example/value-objects';
 import { prisma } from '~/utils/prisma';
-import { EventRepository } from '~/common/repositories';
-import { ExampleCreated, ExampleUpdated } from '..';
 
 const EVENT_PREFIX = 'Example';
 @Injectable()

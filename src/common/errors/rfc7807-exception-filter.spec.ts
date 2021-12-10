@@ -6,8 +6,9 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
-import { Rfc7807ExceptionFilter } from '~/common/errors/rfc7807-exception-filter';
+
 import { DomainException } from './domain.exception';
+import { Rfc7807ExceptionFilter } from '~/common/errors/rfc7807-exception-filter';
 
 const mockResponse = {
   type: jest.fn((_contentType: string) => mockResponse),

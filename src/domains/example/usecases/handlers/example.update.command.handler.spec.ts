@@ -1,12 +1,13 @@
 import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
+
+import { EmailAddress } from '~/common/value-objects';
 import { Example, ExampleState } from '~/domains/example/entities';
 import { ExamplePrismaWriteRepository } from '~/domains/example/repositories';
-import { EmailAddress } from '~/common/value-objects';
-import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
-import { ExampleUpdateCommandHandler } from '~/domains/example/usecases/handlers/example.update.command.handler';
-import { ExampleUpdateCommand } from '~/domains/example/usecases/example.update.command';
 import { ExampleWriteRepository } from '~/domains/example/repositories/example.write.repository';
+import { ExampleUpdateCommand } from '~/domains/example/usecases/example.update.command';
+import { ExampleUpdateCommandHandler } from '~/domains/example/usecases/handlers/example.update.command.handler';
+import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
 
 describe(ExampleUpdateCommandHandler.name, () => {
   let updateCommand: ExampleUpdateCommandHandler;

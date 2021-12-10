@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
-import { ExampleController } from '~/domains/example/example.controller';
-import * as Handlers from '~/domains/example/usecases/handlers';
+
+import { CommonModule } from '~/common';
 import * as EventHandlers from '~/domains/example/events/handlers';
+import { ExampleController } from '~/domains/example/example.controller';
 import {
   ExamplePrismaReadRepository,
   ExamplePrismaWriteRepository,
 } from '~/domains/example/repositories';
-import { CommonModule } from '~/common';
+import * as Handlers from '~/domains/example/usecases/handlers';
 
 @Module({
   imports: [CqrsModule, CommonModule],

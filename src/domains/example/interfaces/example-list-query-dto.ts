@@ -1,4 +1,5 @@
 import { IsOptional, IsString } from 'class-validator';
+
 import { ExampleSearchConditions } from '~/domains/example/entities/example-search-conditions';
 
 export class ExampleListQueryDto {

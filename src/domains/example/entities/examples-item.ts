@@ -1,7 +1,7 @@
 import { Entity } from '~/common/entities';
+import { EmailAddress } from '~/common/value-objects';
 import { ExampleState } from '~/domains/example/entities/example-state';
 import { ExampleId, Name } from '~/domains/example/value-objects';
-import { EmailAddress } from '~/common/value-objects';
 
 type ExamplesItemState = Readonly<Omit<ExampleState, 'detail'>>;
 

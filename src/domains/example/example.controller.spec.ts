@@ -1,23 +1,14 @@
-import { Test } from '@nestjs/testing';
 import { CqrsModule } from '@nestjs/cqrs';
-import { ExampleController } from '~/domains/example/example.controller';
-import {
-  ExampleCreateCommandHandler,
-  ExampleUpdateCommandHandler,
-  ExampleSearchQueryHandler,
-  ExampleDetailQueryHandler,
-} from '~/domains/example/usecases/handlers';
-import {
-  ExamplePrismaReadRepository,
-  ExamplePrismaWriteRepository,
-} from '~/domains/example/repositories';
+import { Test } from '@nestjs/testing';
+
+import { EmailAddress } from '~/common/value-objects';
 import {
   Example,
   Examples,
   ExamplesItem,
   ExampleDetail,
 } from '~/domains/example/entities';
-import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
+import { ExampleController } from '~/domains/example/example.controller';
 import {
   ExampleCreateDto,
   ExampleUpdateDto,
@@ -27,7 +18,17 @@ import {
   ExampleListDto,
   ExampleListQueryDto,
 } from '~/domains/example/interfaces';
-import { EmailAddress } from '~/common/value-objects';
+import {
+  ExamplePrismaReadRepository,
+  ExamplePrismaWriteRepository,
+} from '~/domains/example/repositories';
+import {
+  ExampleCreateCommandHandler,
+  ExampleUpdateCommandHandler,
+  ExampleSearchQueryHandler,
+  ExampleDetailQueryHandler,
+} from '~/domains/example/usecases/handlers';
+import { Detail, ExampleId, Name } from '~/domains/example/value-objects';
 
 describe(ExampleController.name, () => {
   let controller: ExampleController;

@@ -1,7 +1,8 @@
 import { Inject } from '@nestjs/common';
 import { QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { ExampleReadRepository } from '~/domains/example/repositories/example.read.repository';
+
 import { ExampleDetail } from '~/domains/example/entities';
+import { ExampleReadRepository } from '~/domains/example/repositories/example.read.repository';
 import { ExampleDetailQuery } from '~/domains/example/usecases/example.detail.query';
 
 @QueryHandler(ExampleDetailQuery)

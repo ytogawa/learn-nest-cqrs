@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
+
 import { EmailAddress } from '~/common/value-objects';
-import { ExampleId, Name, Detail } from '~/domains/example/value-objects';
 import {
   Examples,
   ExamplesItem,
@@ -8,6 +8,7 @@ import {
   ExampleDetail,
 } from '~/domains/example/entities';
 import { ExampleReadRepository } from '~/domains/example/repositories/example.read.repository';
+import { ExampleId, Name, Detail } from '~/domains/example/value-objects';
 import { prisma } from '~/utils/prisma';
 
 @Injectable()

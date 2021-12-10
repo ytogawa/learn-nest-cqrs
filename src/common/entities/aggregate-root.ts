@@ -1,6 +1,7 @@
 import { EventBus } from '@nestjs/cqrs';
-import { Entity } from './entity';
+
 import { DomainEvent } from './domain-event';
+import { Entity } from './entity';
 import { DomainException } from '~/common/errors';
 import { ValueObject } from '~/common/value-objects';
 

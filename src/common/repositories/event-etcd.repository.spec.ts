@@ -1,8 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { EtcdService } from '~/externals/etcd.service';
+
 import { DomainEvent } from '../entities';
 import { UuidValueObject, ValueObject } from '../value-objects';
 import { EventEtcdRepository } from './event-etcd.repository';
+import { EtcdService } from '~/externals/etcd.service';
 
 class TestId extends UuidValueObject<'TestId'> {}
 class TestValue extends ValueObject<string, 'Test'> {}

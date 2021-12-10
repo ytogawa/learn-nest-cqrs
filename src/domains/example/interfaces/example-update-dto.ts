@@ -1,4 +1,5 @@
 import { IsString, IsEmail, MaxLength, IsOptional } from 'class-validator';
+
 import { EmailAddress } from '~/common/value-objects';
 import { ExampleState } from '~/domains/example/entities';
 import { Name, Detail } from '~/domains/example/value-objects';
