@@ -7,8 +7,7 @@ import {
   ExamplePrismaReadRepository,
   ExamplePrismaWriteRepository,
 } from '~/domains/example/repositories';
-import { EtcdService } from '~/externals';
-import { CommonModule, EventEtcdRepository } from '~/common';
+import { CommonModule } from '~/common';
 
 @Module({
   imports: [CqrsModule, CommonModule],
